@@ -1,0 +1,13 @@
+<view class="coupon-item">
+  <view class="coupon-left">
+    <text class="coupon-discount">{{discount}}折</text>
+  </view>
+  <view class="coupon-center">
+    <text class="coupon-name">{{name}}</text>
+    <text class="coupon-condition">满{{minAmount}}元可用</text>
+    <text class="coupon-expire">{{expireText}}</text>
+  </view>
+  <view class="coupon-right" bindtap="onUse">
+    <text class="coupon-btn">{{used ? '已使用' : '立即使用'}}</text>
+  </view>
+</view>

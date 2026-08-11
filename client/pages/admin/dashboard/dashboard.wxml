@@ -1,0 +1,31 @@
+<view class="dashboard-page">
+  <view class="stats-grid">
+    <view class="stat-card"><text class="stat-value">{{stats.patients}}</text><text class="stat-label">患者总数</text></view>
+    <view class="stat-card"><text class="stat-value">{{stats.guides}}</text><text class="stat-label">导诊员总数</text></view>
+    <view class="stat-card"><text class="stat-value">{{stats.orders}}</text><text class="stat-label">订单总数</text></view>
+    <view class="stat-card"><text class="stat-value">{{stats.todayOrders}}</text><text class="stat-label">今日订单</text></view>
+  </view>
+
+  <view class="menu-list">
+    <view class="menu-item" bindtap="onHospitalReg">
+      <image class="menu-icon" src="/images/icons/hospital.png" />
+      <text class="menu-text">医院管理</text>
+      <image class="menu-arrow" src="/images/icons/arrow-right.png" />
+    </view>
+    <view class="menu-item" bindtap="onCouponMgmt">
+      <image class="menu-icon" src="/images/icons/coupon.png" />
+      <text class="menu-text">优惠券管理</text>
+      <image class="menu-arrow" src="/images/icons/arrow-right.png" />
+    </view>
+    <view class="menu-item" bindtap="onOrderMgmt">
+      <image class="menu-icon" src="/images/icons/order.png" />
+      <text class="menu-text">订单管理</text>
+      <image class="menu-arrow" src="/images/icons/arrow-right.png" />
+    </view>
+    <view class="menu-item" bindtap="onMessageMgmt">
+      <image class="menu-icon" src="/images/icons/message.png" />
+      <text class="menu-text">留言管理</text>
+      <image class="menu-arrow" src="/images/icons/arrow-right.png" />
+    </view>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "选择导诊员",
+  "usingComponents": {
+    "guide-card": "/components/guide-card/guide-card",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

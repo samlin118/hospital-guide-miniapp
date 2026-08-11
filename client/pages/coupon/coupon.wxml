@@ -1,0 +1,18 @@
+<view class="coupon-page">
+  <view class="coupon-list">
+    <view class="coupon-card" wx:for="{{coupons}}" wx:key="id">
+      <view class="coupon-left">
+        <text class="coupon-discount">{{item.discount}}折</text>
+      </view>
+      <view class="coupon-center">
+        <text class="coupon-name">{{item.name}}</text>
+        <text class="coupon-condition">满{{item.min_amount}}元可用</text>
+        <text class="coupon-expire">{{item.expireText}}</text>
+      </view>
+      <view class="coupon-right">
+        <text class="coupon-status {{item.used ? 'used' : 'available'}}">{{item.used ? '已使用' : '可用'}}</text>
+      </view>
+    </view>
+    <empty-state wx:if="{{coupons.length === 0}}" text="暂无优惠券" />
+  </view>
+</view>

@@ -1,0 +1,72 @@
+.guide-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 0 30rpx 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.guide-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.guide-info {
+  flex: 1;
+  margin-left: 20rpx;
+  min-width: 0;
+}
+
+.guide-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333333;
+}
+
+.guide-stats {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 6rpx;
+}
+
+.guide-score {
+  font-size: 24rpx;
+  color: #ff9500;
+}
+
+.guide-count {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.guide-desc {
+  font-size: 24rpx;
+  color: #666666;
+  margin-top: 8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.guide-price {
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.price-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #07C160;
+}
+
+.price-unit {
+  font-size: 22rpx;
+  color: #07C160;
+  margin-left: 4rpx;
+}

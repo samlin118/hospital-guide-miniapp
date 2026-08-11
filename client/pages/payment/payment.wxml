@@ -1,0 +1,22 @@
+<view class="payment-page">
+  <view class="order-info">
+    <text class="amount">¥{{amount}}</text>
+    <text class="order-no">订单号: {{orderNo}}</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">选择支付方式</text>
+    <view class="payment-method {{method === 'wechat' ? 'active' : ''}}" bindtap="onSelectMethod" data-method="wechat">
+      <image class="method-icon" src="/images/icons/wechat-pay.png" />
+      <text class="method-name">微信支付</text>
+      <image class="check-icon" src="/images/icons/{{method === 'wechat' ? 'checked' : 'unchecked'}}.png" />
+    </view>
+    <view class="payment-method {{method === 'alipay' ? 'active' : ''}}" bindtap="onSelectMethod" data-method="alipay">
+      <image class="method-icon" src="/images/icons/alipay.png" />
+      <text class="method-name">支付宝</text>
+      <image class="check-icon" src="/images/icons/{{method === 'alipay' ? 'checked' : 'unchecked'}}.png" />
+    </view>
+  </view>
+
+  <button class="pay-btn" bindtap="onPay">确认支付 ¥{{amount}}</button>
+</view>

@@ -1,0 +1,14 @@
+.message-page { padding-bottom: 120rpx; }
+.message-list { padding: 20rpx 30rpx; }
+.message-item { background: #fff; border-radius: var(--card-radius); padding: 24rpx; margin-bottom: 20rpx; }
+.msg-header { display: flex; justify-content: space-between; margin-bottom: 12rpx; }
+.msg-role { font-size: 24rpx; color: var(--primary); }
+.msg-time { font-size: 22rpx; color: var(--text-hint); }
+.msg-content { font-size: 28rpx; line-height: 1.6; }
+.msg-reply { background: var(--primary-light); padding: 16rpx; border-radius: var(--radius-sm); margin-top: 16rpx; }
+.reply-label { font-size: 24rpx; color: var(--primary); display: block; margin-bottom: 6rpx; }
+.reply-content { font-size: 26rpx; color: var(--text-secondary); }
+.bottom-input { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 16rpx 30rpx; padding-bottom: env(safe-area-inset-bottom); display: flex; align-items: center; border-top: 1rpx solid var(--border-color); }
+.input-field { flex: 1; height: 72rpx; background: var(--bg-color); border-radius: 36rpx; padding: 0 24rpx; font-size: 28rpx; }
+.send-btn { margin-left: 16rpx; height: 72rpx; background: var(--primary); color: #fff; border-radius: 36rpx; padding: 0 36rpx; font-size: 28rpx; display: flex; align-items: center; }
+.send-btn[disabled] { background: #CCC; }

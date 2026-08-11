@@ -1,0 +1,21 @@
+.star-rating {
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 4rpx;
+  flex-shrink: 0;
+}
+
+.star:last-child {
+  margin-right: 0;
+}
+
+.star-text {
+  font-size: 24rpx;
+  color: #999999;
+  margin-left: 8rpx;
+}

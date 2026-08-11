@@ -1,0 +1,13 @@
+.payment-page { background: var(--bg-color); min-height: 100vh; padding-bottom: 120rpx; }
+.order-info { display: flex; flex-direction: column; align-items: center; padding: 60rpx 30rpx; background: #fff; }
+.amount { font-size: 80rpx; font-weight: bold; color: var(--text-primary); margin-bottom: 16rpx; }
+.order-no { font-size: 24rpx; color: var(--text-hint); }
+.section { background: #fff; margin: 20rpx 30rpx; border-radius: var(--card-radius); padding: 30rpx; }
+.section-title { font-size: 28rpx; color: var(--text-secondary); margin-bottom: 20rpx; display: block; }
+.payment-method { display: flex; align-items: center; padding: 24rpx 20rpx; border: 2rpx solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 16rpx; }
+.payment-method:last-child { margin-bottom: 0; }
+.payment-method.active { border-color: var(--primary); background: var(--primary-light); }
+.method-icon { width: 48rpx; height: 48rpx; margin-right: 20rpx; }
+.method-name { flex: 1; font-size: 28rpx; color: var(--text-primary); }
+.check-icon { width: 36rpx; height: 36rpx; }
+.pay-btn { position: fixed; bottom: 0; left: 0; right: 0; margin: 0; height: 98rpx; background: var(--primary); color: #fff; font-size: 36rpx; font-weight: bold; border-radius: 0; display: flex; align-items: center; justify-content: center; }

@@ -1,0 +1,21 @@
+<view class="message-page">
+  <view class="message-list">
+    <view class="message-item" wx:for="{{messages}}" wx:key="id">
+      <view class="msg-header">
+        <text class="msg-role">{{item.role === 'patient' ? '患者' : '导诊员'}}</text>
+        <text class="msg-time">{{item.created_at}}</text>
+      </view>
+      <text class="msg-content">{{item.content}}</text>
+      <view class="msg-reply" wx:if="{{item.reply}}">
+        <text class="reply-label">系统回复:</text>
+        <text class="reply-content">{{item.reply}}</text>
+      </view>
+    </view>
+    <empty-state wx:if="{{messages.length === 0}}" text="暂无消息记录" />
+  </view>
+
+  <view class="bottom-input">
+    <input class="input-field" placeholder="请输入您的问题或建议..." value="{{inputText}}" bindinput="onInput" />
+    <button class="send-btn" bindtap="onSend" disabled="{{!inputText}}">发送</button>
+  </view>
+</view>

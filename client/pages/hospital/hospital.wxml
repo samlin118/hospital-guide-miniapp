@@ -1,0 +1,19 @@
+<view class="hospital-page">
+  <view class="search-box">
+    <input class="search-input" placeholder="搜索医院名称" value="{{keyword}}" bindinput="onKeywordInput" />
+    <button class="search-btn" bindtap="onSearch">搜索</button>
+  </view>
+  <view class="filter-bar">
+    <text class="filter-item {{filterLevel === '' ? 'active' : ''}}" bindtap="onFilterLevel" data-level="">全部</text>
+    <text class="filter-item {{filterLevel === '三甲' ? 'active' : ''}}" bindtap="onFilterLevel" data-level="三甲">三甲医院</text>
+    <text class="filter-item {{filterLevel === '二甲' ? 'active' : ''}}" bindtap="onFilterLevel" data-level="二甲">二甲医院</text>
+    <text class="filter-item {{filterLevel === '社区医院' ? 'active' : ''}}" bindtap="onFilterLevel" data-level="社区医院">社区医院</text>
+  </view>
+  <view class="hospital-list">
+    <hospital-card wx:for="{{hospitals}}" wx:key="id" 
+      id="{{item.id}}" name="{{item.name}}" address="{{item.address}}"
+      level="{{item.level}}" score="{{item.score}}" distance="{{item.distance}}"
+      image="{{item.image}}" bind:tap="onHospitalTap" />
+    <empty-state wx:if="{{hospitals.length === 0}}" text="暂无医院信息" />
+  </view>
+</view>

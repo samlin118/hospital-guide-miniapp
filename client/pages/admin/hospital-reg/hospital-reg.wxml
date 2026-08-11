@@ -1,0 +1,37 @@
+<view class="admin-page">
+  <view class="form-section">
+    <view class="form-item">
+      <text class="form-label">医院名称</text>
+      <input class="form-input" placeholder="请输入医院名称" value="{{form.name}}" bindinput="onFormInput" data-field="name" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">医院地址</text>
+      <input class="form-input" placeholder="请输入医院地址" value="{{form.address}}" bindinput="onFormInput" data-field="address" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">联系电话</text>
+      <input class="form-input" placeholder="请输入联系电话" value="{{form.phone}}" bindinput="onFormInput" data-field="phone" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">医院等级</text>
+      <picker mode="selector" range="{{levels}}" value="{{levelIndex}}" bindchange="onLevelChange">
+        <view class="picker-value">{{levels[levelIndex] || '请选择等级'}}</view>
+      </picker>
+    </view>
+    <button class="submit-btn" bindtap="onSubmit">{{editId ? '更新医院' : '添加医院'}}</button>
+  </view>
+
+  <view class="list-section">
+    <text class="list-title">已注册医院</text>
+    <view class="hospital-item" wx:for="{{hospitals}}" wx:key="id">
+      <view class="hosp-info">
+        <text class="hosp-name">{{item.name}}</text>
+        <text class="hosp-level">{{item.level}}</text>
+      </view>
+      <view class="hosp-actions">
+        <text class="action-edit" bindtap="onEdit" data-id="{{item.id}}">编辑</text>
+        <text class="action-delete" bindtap="onDelete" data-id="{{item.id}}">删除</text>
+      </view>
+    </view>
+  </view>
+</view>

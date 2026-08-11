@@ -1,0 +1,17 @@
+<view class="dept-page">
+  <view class="hospital-info">
+    <text class="hosp-name">{{hospital.name}}</text>
+    <text class="hosp-addr">{{hospital.address}}</text>
+  </view>
+  <view class="dept-list">
+    <view class="dept-item" wx:for="{{departments}}" wx:key="id" bindtap="onDeptTap" data-id="{{item.id}}" data-name="{{item.name}}">
+      <view class="dept-left">
+        <image class="dept-icon" src="/images/icons/dept.png" />
+        <text class="dept-name">{{item.name}}</text>
+      </view>
+      <text class="dept-desc">{{item.description}}</text>
+      <image class="dept-arrow" src="/images/icons/arrow-right.png" />
+    </view>
+    <empty-state wx:if="{{departments.length === 0}}" text="暂无科室信息" />
+  </view>
+</view>

@@ -1,0 +1,74 @@
+<view class="confirm-page">
+  <view class="section">
+    <view class="info-row">
+      <text class="info-label">导诊员</text>
+      <text class="info-value">{{guideName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">服务医院</text>
+      <text class="info-value">{{hospitalName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">服务科室</text>
+      <text class="info-value">{{deptName}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="form-item">
+      <text class="form-label">服务日期</text>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="picker-value">{{date || '请选择日期'}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <text class="form-label">开始时间</text>
+      <picker mode="time" value="{{startTime}}" bindchange="onTimeChange">
+        <view class="picker-value">{{startTime || '请选择时间'}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <text class="form-label">服务时长</text>
+      <view class="duration-select">
+        <text class="duration-option {{duration === 1 ? 'active' : ''}}" bindtap="onDuration" data-val="1">1小时</text>
+        <text class="duration-option {{duration === 2 ? 'active' : ''}}" bindtap="onDuration" data-val="2">2小时</text>
+        <text class="duration-option {{duration === 3 ? 'active' : ''}}" bindtap="onDuration" data-val="3">3小时</text>
+        <text class="duration-option {{duration === 4 ? 'active' : ''}}" bindtap="onDuration" data-val="4">4小时</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="form-item" bindtap="onSelectCoupon">
+      <text class="form-label">优惠券</text>
+      <view class="coupon-select">
+        <text class="coupon-text" wx:if="{{selectedCoupon}}">{{selectedCoupon.name}}</text>
+        <text class="coupon-placeholder" wx:else>{{couponCount > 0 ? couponCount + '张可用' : '无可用优惠券'}}</text>
+        <image class="arrow-right" src="/images/icons/arrow-right.png" />
+      </view>
+    </view>
+  </view>
+
+  <view class="section price-detail">
+    <view class="price-row">
+      <text>基础费用</text>
+      <text>¥{{baseAmount}}</text>
+    </view>
+    <view class="price-row" wx:if="{{discountAmount > 0}}">
+      <text>优惠减免</text>
+      <text class="discount">-¥{{discountAmount}}</text>
+    </view>
+    <view class="price-row total">
+      <text>合计</text>
+      <text class="total-price">¥{{finalAmount}}</text>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="bottom-price">
+      <text class="total-label">合计: </text>
+      <text class="total-value">¥{{finalAmount}}</text>
+    </view>
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{!date || !startTime || !duration}}">提交订单</button>
+  </view>
+</view>

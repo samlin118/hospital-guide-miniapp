@@ -1,0 +1,35 @@
+<view class="admin-page">
+  <view class="form-section">
+    <view class="form-item">
+      <text class="form-label">优惠券名称</text>
+      <input class="form-input" placeholder="如: 新客9折券" value="{{form.name}}" bindinput="onFormInput" data-field="name" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">折扣率</text>
+      <input class="form-input" placeholder="9.0 表示9折" type="digit" value="{{form.discount}}" bindinput="onFormInput" data-field="discount" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">最低消费(元)</text>
+      <input class="form-input" placeholder="0表示无限制" type="digit" value="{{form.min_amount}}" bindinput="onFormInput" data-field="min_amount" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">发放数量</text>
+      <input class="form-input" placeholder="优惠券总数" type="number" value="{{form.total_count}}" bindinput="onFormInput" data-field="total_count" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">有效期(天)</text>
+      <input class="form-input" placeholder="30" type="number" value="{{form.expire_days}}" bindinput="onFormInput" data-field="expire_days" />
+    </view>
+    <button class="submit-btn" bindtap="onCreate">创建优惠券</button>
+  </view>
+
+  <view class="list-section">
+    <text class="list-title">已创建优惠券</text>
+    <view class="coupon-item" wx:for="{{coupons}}" wx:key="id">
+      <view class="coupon-info">
+        <text class="cpn-name">{{item.name}}</text>
+        <text class="cpn-detail">{{item.discount}}折 | 满{{item.min_amount}}元 | 剩余{{item.remain_count}}/{{item.total_count}}</text>
+      </view>
+    </view>
+  </view>
+</view>

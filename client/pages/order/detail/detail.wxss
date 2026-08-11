@@ -1,0 +1,16 @@
+.detail-page { background: var(--bg-color); min-height: 100vh; padding-bottom: 120rpx; }
+.status-bar { display: flex; align-items: center; justify-content: center; padding: 40rpx 30rpx; color: #fff; }
+.status-icon { font-size: 48rpx; margin-right: 12rpx; }
+.status-text { font-size: 36rpx; font-weight: bold; }
+.section { background: #fff; margin: 20rpx 30rpx; border-radius: var(--card-radius); padding: 30rpx; }
+.info-row { display: flex; justify-content: space-between; padding: 20rpx 0; border-bottom: 1rpx solid var(--divider); }
+.info-row:last-child { border-bottom: none; }
+.label { font-size: 28rpx; color: var(--text-secondary); }
+.value { font-size: 28rpx; color: var(--text-primary); font-weight: bold; }
+.discount { color: var(--primary); }
+.total { border-top: 1rpx solid var(--divider); margin-top: 12rpx; padding-top: 24rpx; }
+.total .label { font-size: 30rpx; font-weight: bold; color: var(--text-primary); }
+.total-price { color: var(--danger); font-size: 36rpx; }
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 20rpx 30rpx; display: flex; gap: 20rpx; box-shadow: 0 -4rpx 16rpx rgba(0,0,0,0.06); }
+.cancel-btn { flex: 1; height: 88rpx; background: #fff; border: 2rpx solid var(--border-color); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 32rpx; display: flex; align-items: center; justify-content: center; }
+.pay-btn { flex: 2; height: 88rpx; background: var(--primary); border-radius: var(--radius-md); color: #fff; font-size: 32rpx; font-weight: bold; display: flex; align-items: center; justify-content: center; }

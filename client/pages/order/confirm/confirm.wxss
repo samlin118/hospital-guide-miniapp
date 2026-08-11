@@ -1,0 +1,28 @@
+.confirm-page { padding-bottom: 120rpx; }
+.section { background: #fff; margin: 20rpx 30rpx; border-radius: var(--card-radius); padding: 30rpx; }
+.info-row { display: flex; justify-content: space-between; padding: 16rpx 0; border-bottom: 1rpx solid var(--divider); }
+.info-row:last-child { border-bottom: none; }
+.info-label { color: var(--text-secondary); font-size: 28rpx; }
+.info-value { font-size: 28rpx; font-weight: bold; }
+.form-item { padding: 20rpx 0; border-bottom: 1rpx solid var(--divider); display: flex; justify-content: space-between; align-items: center; }
+.form-item:last-child { border-bottom: none; }
+.form-label { font-size: 28rpx; }
+.picker-value { color: var(--text-primary); font-size: 28rpx; }
+.duration-select { display: flex; gap: 16rpx; }
+.duration-option { padding: 12rpx 24rpx; border: 2rpx solid var(--border-color); border-radius: var(--radius-md); font-size: 26rpx; }
+.duration-option.active { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+.coupon-select { display: flex; align-items: center; }
+.coupon-text { color: var(--primary); font-size: 26rpx; }
+.coupon-placeholder { color: var(--text-placeholder); font-size: 26rpx; }
+.arrow-right { width: 16rpx; height: 28rpx; margin-left: 8rpx; }
+.price-detail { }
+.price-row { display: flex; justify-content: space-between; padding: 12rpx 0; font-size: 26rpx; color: var(--text-secondary); }
+.price-row.total { border-top: 1rpx solid var(--divider); margin-top: 12rpx; padding-top: 20rpx; font-size: 30rpx; font-weight: bold; color: var(--text-primary); }
+.total-price { color: var(--danger); font-size: 36rpx; }
+.discount { color: var(--primary); }
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 20rpx 30rpx; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 -4rpx 16rpx rgba(0,0,0,0.06); }
+.bottom-price { display: flex; align-items: baseline; }
+.total-label { font-size: 28rpx; color: var(--text-secondary); }
+.total-value { font-size: 40rpx; color: var(--danger); font-weight: bold; }
+.submit-btn { height: 88rpx; background: var(--primary); color: #fff; border-radius: var(--radius-md); padding: 0 60rpx; font-size: 32rpx; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+.submit-btn[disabled] { background: #CCC; }

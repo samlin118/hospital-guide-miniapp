@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "选择医院",
+  "usingComponents": {
+    "hospital-card": "/components/hospital-card/hospital-card",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

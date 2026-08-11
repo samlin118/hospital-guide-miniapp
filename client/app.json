@@ -1,0 +1,72 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/register/patient/patient",
+    "pages/register/guide/guide",
+    "pages/hospital/hospital",
+    "pages/department/department",
+    "pages/guide/list/list",
+    "pages/guide/detail/detail",
+    "pages/order/confirm/confirm",
+    "pages/order/list/list",
+    "pages/order/detail/detail",
+    "pages/payment/payment",
+    "pages/rating/rating",
+    "pages/message/message",
+    "pages/profile/profile",
+    "pages/coupon/coupon",
+    "pages/admin/dashboard/dashboard",
+    "pages/admin/hospital-reg/hospital-reg",
+    "pages/admin/coupon-mgmt/coupon-mgmt"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#07C160",
+    "navigationBarTitleText": "医导通",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F6FA",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#07C160",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home-active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/list/list",
+        "iconPath": "images/icons/order.png",
+        "selectedIconPath": "images/icons/order-active.png",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "iconPath": "images/icons/message.png",
+        "selectedIconPath": "images/icons/message-active.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "images/icons/profile.png",
+        "selectedIconPath": "images/icons/profile-active.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/nav-bar",
+    "hospital-card": "/components/hospital-card/hospital-card",
+    "guide-card": "/components/guide-card/guide-card",
+    "star-rating": "/components/star-rating/star-rating",
+    "coupon-item": "/components/coupon-item/coupon-item",
+    "empty-state": "/components/empty-state/empty-state"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

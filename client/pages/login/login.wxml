@@ -1,0 +1,28 @@
+<view class="login-page">
+  <view class="login-header">
+    <image class="login-logo" src="/images/icons/logo.png" />
+    <text class="login-title">医导通</text>
+    <text class="login-desc">医院导诊员交易平台</text>
+  </view>
+  <view class="login-role-select">
+    <view class="role-card {{role === 'patient' ? 'active' : ''}}" bindtap="selectRole" data-role="patient">
+      <image class="role-icon" src="/images/icons/patient.png" />
+      <text class="role-name">我是患者</text>
+      <text class="role-desc">需要导诊陪诊服务</text>
+    </view>
+    <view class="role-card {{role === 'guide' ? 'active' : ''}}" bindtap="selectRole" data-role="guide">
+      <image class="role-icon" src="/images/icons/guide.png" />
+      <text class="role-name">我是导诊员</text>
+      <text class="role-desc">提供导诊陪诊服务</text>
+    </view>
+  </view>
+  <view class="login-form" wx:if="{{role}}">
+    <input class="login-input" placeholder="请输入手机号" type="text" maxlength="11" value="{{phone}}" bindinput="onPhoneInput" />
+    <input class="login-input" placeholder="请输入密码" type="password" value="{{password}}" bindinput="onPasswordInput" />
+    <button class="login-btn" bindtap="onLogin">登 录</button>
+    <view class="login-links">
+      <text class="link" bindtap="onRegister">注册账号</text>
+      <text class="link" bindtap="onAdminLogin">管理员登录</text>
+    </view>
+  </view>
+</view>

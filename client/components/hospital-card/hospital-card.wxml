@@ -1,0 +1,12 @@
+<view class="hospital-card" bindtap="onTap">
+  <image class="hospital-image" src="{{image || '/images/default/hospital.png'}}" mode="aspectFill" />
+  <view class="hospital-info">
+    <view class="hospital-name">{{name}}</view>
+    <view class="hospital-tags">
+      <text class="tag level">{{level}}</text>
+      <text class="tag score">★ {{score}}</text>
+    </view>
+    <view class="hospital-address">{{address}}</view>
+    <view class="hospital-distance" wx:if="{{distance}}">{{distance}}</view>
+  </view>
+</view>

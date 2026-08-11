@@ -1,0 +1,27 @@
+.detail-page { padding-bottom: 120rpx; }
+.guide-header { background: #fff; margin: 20rpx 30rpx; border-radius: var(--card-radius); padding: 30rpx; display: flex; align-items: center; }
+.guide-avatar { width: 120rpx; height: 120rpx; border-radius: 50%; margin-right: 24rpx; }
+.guide-meta { flex: 1; }
+.guide-name { font-size: 32rpx; font-weight: bold; display: block; }
+.guide-stats { display: flex; align-items: center; gap: 12rpx; margin-top: 8rpx; }
+.guide-score { font-size: 24rpx; color: var(--warning); }
+.guide-count { font-size: 22rpx; color: var(--text-hint); }
+.guide-price { font-size: 36rpx; color: var(--primary); font-weight: bold; }
+.section { background: #fff; margin: 20rpx 30rpx; border-radius: var(--card-radius); padding: 30rpx; }
+.section-title { font-size: 30rpx; font-weight: bold; display: block; margin-bottom: 16rpx; }
+.section-content { font-size: 26rpx; color: var(--text-secondary); line-height: 1.6; }
+.price-detail { }
+.price-row { display: block; font-size: 26rpx; color: var(--text-secondary); margin-bottom: 8rpx; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16rpx; }
+.rating-summary { display: flex; align-items: center; gap: 12rpx; margin-bottom: 20rpx; }
+.rating-score { font-size: 48rpx; font-weight: bold; color: var(--warning); }
+.rating-item { padding: 20rpx 0; border-bottom: 1rpx solid #f0f0f0; }
+.rating-item:last-child { border-bottom: none; }
+.rating-user { display: flex; align-items: center; gap: 12rpx; margin-bottom: 8rpx; }
+.rating-name { font-size: 26rpx; font-weight: bold; }
+.rating-content { font-size: 26rpx; color: var(--text-secondary); }
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; align-items: center; padding: 20rpx 30rpx; padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); border-top: 1rpx solid #eee; }
+.bottom-price { flex: 1; }
+.price-label { font-size: 22rpx; color: var(--text-hint); display: block; }
+.price-value { font-size: 36rpx; color: var(--primary); font-weight: bold; }
+.book-btn { height: 80rpx; line-height: 80rpx; padding: 0 60rpx; background: var(--primary); color: #fff; border-radius: 40rpx; font-size: 30rpx; border: none; }

@@ -1,0 +1,57 @@
+/* 主题色 */
+--primary: #07C160;
+--primary-light: #E8F8EE;
+--primary-dark: #06AD56;
+--secondary: #1989FA;
+--secondary-light: #E8F4FD;
+
+/* 功能色 */
+--success: #07C160;
+--warning: #FF976A;
+--danger: #EE0A24;
+--info: #1989FA;
+
+/* 中性色 */
+--text-primary: #333;
+--text-secondary: #666;
+--text-hint: #999;
+--text-placeholder: #C8C9CC;
+--border-color: #EEE;
+--divider: #F0F0F0;
+--bg-color: #F5F6FA;
+--bg-white: #FFF;
+--bg-card: #FFF;
+
+/* 圆角 */
+--radius-sm: 8rpx;
+--radius-md: 12rpx;
+--radius-lg: 20rpx;
+--radius-xl: 30rpx;
+--radius-round: 50%;
+
+/* 阴影 */
+--shadow-sm: 0 2rpx 8rpx rgba(0,0,0,0.06);
+--shadow-md: 0 4rpx 16rpx rgba(0,0,0,0.08);
+--shadow-lg: 0 8rpx 32rpx rgba(0,0,0,0.12);
+
+/* 字体 */
+--font-xs: 22rpx;
+--font-sm: 24rpx;
+--font-md: 28rpx;
+--font-lg: 32rpx;
+--font-xl: 36rpx;
+--font-xxl: 44rpx;
+
+/* 间距 */
+--spacing-xs: 8rpx;
+--spacing-sm: 12rpx;
+--spacing-md: 16rpx;
+--spacing-lg: 24rpx;
+--spacing-xl: 32rpx;
+
+/* 导航栏 */
+--nav-height: 88rpx;
+--tab-height: 100rpx;
+
+/* 美团风格卡片 */
+--card-radius: 16rpx;

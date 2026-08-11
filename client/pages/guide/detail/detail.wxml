@@ -1,0 +1,53 @@
+<view class="detail-page">
+  <view class="guide-header">
+    <image class="guide-avatar" src="{{guide.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+    <view class="guide-meta">
+      <text class="guide-name">{{guide.name}}</text>
+      <view class="guide-stats">
+        <star-rating value="{{guide.score}}" size="28" />
+        <text class="guide-score">{{guide.score}}分</text>
+        <text class="guide-count">已服务{{guide.service_count}}人</text>
+      </view>
+    </view>
+    <text class="guide-price">{{guide.price}}元/时</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">服务介绍</text>
+    <text class="section-content">{{guide.desc || '专业导诊服务，熟悉医院各科室流程，为您提供高效便捷的就医体验。'}}</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">收费标准</text>
+    <view class="price-detail">
+      <text class="price-row">前2小时: 50元</text>
+      <text class="price-row">超出部分: 10元/小时</text>
+      <text class="price-row">例: 预约3小时 = 50 + 10 = 60元</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">用户评价 ({{ratings.length}})</text>
+    </view>
+    <view class="rating-summary">
+      <text class="rating-score">{{guide.score}}分</text>
+      <star-rating value="{{guide.score}}" size="24" />
+    </view>
+    <view class="rating-item" wx:for="{{ratings}}" wx:key="id">
+      <view class="rating-user">
+        <text class="rating-name">{{item.anonymous ? '匿名用户' : '用户'}}</text>
+        <star-rating value="{{item.score}}" size="20" />
+      </view>
+      <text class="rating-content">{{item.content}}</text>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="bottom-price">
+      <text class="price-label">参考价格</text>
+      <text class="price-value">¥{{guide.price}}/时</text>
+    </view>
+    <button class="book-btn" bindtap="onBook">立即预约</button>
+  </view>
+</view>

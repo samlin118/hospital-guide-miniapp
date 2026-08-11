@@ -1,0 +1,11 @@
+.dashboard-page { padding-bottom: 40rpx; background: var(--bg-primary); min-height: 100vh; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24rpx; padding: 30rpx; }
+.stat-card { background: #fff; border-radius: var(--card-radius); padding: 40rpx 20rpx; display: flex; flex-direction: column; align-items: center; box-shadow: var(--shadow-sm); }
+.stat-value { font-size: 48rpx; font-weight: bold; color: #07C160; }
+.stat-label { font-size: 24rpx; color: var(--text-hint); margin-top: 12rpx; }
+.menu-list { margin: 10rpx 30rpx; background: #fff; border-radius: var(--card-radius); overflow: hidden; }
+.menu-item { display: flex; align-items: center; padding: 30rpx 24rpx; border-bottom: 1rpx solid var(--divider); }
+.menu-item:last-child { border-bottom: none; }
+.menu-icon { width: 40rpx; height: 40rpx; margin-right: 20rpx; }
+.menu-text { flex: 1; font-size: 28rpx; }
+.menu-arrow { width: 14rpx; height: 24rpx; }

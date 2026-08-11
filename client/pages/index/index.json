@@ -1,0 +1,6 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "hospital-card": "/components/hospital-card/hospital-card"
+  }
+}

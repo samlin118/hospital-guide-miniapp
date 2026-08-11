@@ -1,0 +1,13 @@
+.coupon-page { padding: 30rpx; min-height: 100vh; background: var(--bg-primary); }
+.coupon-list { display: flex; flex-direction: column; gap: 24rpx; }
+.coupon-card { display: flex; background: #fff; border-radius: var(--card-radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1rpx dashed var(--divider); }
+.coupon-left { width: 160rpx; background: linear-gradient(135deg, #07C160, #06AD56); display: flex; align-items: center; justify-content: center; }
+.coupon-discount { font-size: 40rpx; font-weight: bold; color: #fff; }
+.coupon-center { flex: 1; padding: 24rpx; display: flex; flex-direction: column; justify-content: center; }
+.coupon-name { font-size: 28rpx; font-weight: bold; color: var(--text-primary); }
+.coupon-condition { font-size: 24rpx; color: var(--text-hint); margin-top: 8rpx; }
+.coupon-expire { font-size: 22rpx; color: var(--text-hint); margin-top: 6rpx; }
+.coupon-right { width: 100rpx; display: flex; align-items: center; justify-content: center; padding: 24rpx; }
+.coupon-status { font-size: 24rpx; padding: 6rpx 16rpx; border-radius: 20rpx; }
+.coupon-status.available { color: #07C160; background: rgba(7,193,96,0.1); }
+.coupon-status.used { color: var(--text-hint); background: var(--bg-primary); }

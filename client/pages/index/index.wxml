@@ -1,0 +1,49 @@
+<view class="index-page">
+  <view class="search-bar" bindtap="onSearch">
+    <image class="search-icon" src="/images/icons/search.png" />
+    <text class="search-text">搜索医院或导诊员</text>
+  </view>
+
+  <swiper class="banner" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" circular="{{true}}">
+    <swiper-item wx:for="{{banners}}" wx:key="id">
+      <image class="banner-image" src="{{item.image || '/images/default/banner.png'}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+
+  <view class="quick-nav">
+    <view class="nav-item" wx:for="{{quickNavs}}" wx:key="id" bindtap="onNavTap" data-url="{{item.url}}">
+      <image class="nav-icon" src="{{item.icon}}" />
+      <text class="nav-text">{{item.name}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">附近医院</text>
+      <text class="section-more" bindtap="onMoreHospital">查看更多 ></text>
+    </view>
+    <view class="hospital-list">
+      <hospital-card wx:for="{{hospitals}}" wx:key="id" 
+        id="{{item.id}}" name="{{item.name}}" address="{{item.address}}" 
+        level="{{item.level}}" score="{{item.score}}" distance="{{item.distance}}"
+        image="{{item.image}}" bind:tap="onHospitalTap" />
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">推荐导诊员</text>
+      <text class="section-more" bindtap="onMoreGuide">查看更多 ></text>
+    </view>
+    <scroll-view class="guide-scroll" scroll-x="{{true}}" show-scrollbar="{{false}}">
+      <view class="guide-scroll-inner">
+        <view class="guide-item" wx:for="{{guides}}" wx:key="id" bindtap="onGuideTap" data-id="{{item.id}}">
+          <image class="guide-avatar" src="{{item.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+          <text class="guide-name">{{item.name}}</text>
+          <text class="guide-score">★ {{item.score}}</text>
+          <text class="guide-price">{{item.price}}元/时</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

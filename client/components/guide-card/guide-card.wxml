@@ -1,0 +1,15 @@
+<view class="guide-card" bindtap="onTap">
+  <image class="guide-avatar" src="{{avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+  <view class="guide-info">
+    <view class="guide-name">{{name}}</view>
+    <view class="guide-stats">
+      <text class="guide-score">★ {{score}}</text>
+      <text class="guide-count">已服务 {{serviceCount}}人</text>
+    </view>
+    <view class="guide-desc">{{desc}}</view>
+  </view>
+  <view class="guide-price">
+    <text class="price-value">{{price}}</text>
+    <text class="price-unit">元/时</text>
+  </view>
+</view>

@@ -147,6 +147,67 @@ const Order = {
       'SELECT status, COUNT(*) AS count FROM orders GROUP BY status'
     );
     return rows;
+  },
+
+  async count() {
+    const [[{ total }]] = await db.execute('SELECT COUNT(*) AS total FROM orders');
+    return total;
+  },
+
+  async countToday() {
+    const [[{ total }]] = await db.execute('SELECT COUNT(*) AS total FROM orders WHERE DATE(created_at) = CURDATE()');
+    return total;
+  },
+
+  async recent(limit = 10) {
+    const [rows] = await db.execute(
+      `SELECT o.*, p.name AS patient_name, g.name AS guide_name, h.name AS hospital_name
+       FROM orders o
+       LEFT JOIN patients p ON o.patient_id = p.id
+       LEFT JOIN guides g ON o.guide_id = g.id
+       LEFT JOIN hospitals h ON o.hospital_id = h.id
+       ORDER BY o.created_at DESC LIMIT ?`,
+      [limit]
+    );
+    return rows;
+  },
+
+  async getStats(startDate, endDate) {
+    let where = '';
+    const params = [];
+    if (startDate) {
+      where += ' WHERE DATE(created_at) >= ?';
+      params.push(startDate);
+    }
+    if (endDate) {
+      where += (where ? ' AND ' : 'WHERE ') + 'DATE(created_at) <= ?';
+      params.push(endDate);
+    }
+    const [rows] = await db.execute(
+      `SELECT DATE(created_at) AS date, COUNT(*) AS count, COALESCE(SUM(final_amount), 0) AS amount
+       FROM orders ${where}
+       GROUP BY DATE(created_at) ORDER BY date`,
+      params
+    );
+    return rows;
+  },
+
+  async updateByOrderNo(orderNo, data) {
+    const fields = [];
+    const values = [];
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== undefined) {
+        fields.push(`${key} = ?`);
+        values.push(value);
+      }
+    }
+    if (fields.length === 0) return null;
+    values.push(orderNo);
+    const [result] = await db.execute(
+      `UPDATE orders SET ${fields.join(', ')} WHERE order_no = ?`,
+      values
+    );
+    return result;
   }
 };
 

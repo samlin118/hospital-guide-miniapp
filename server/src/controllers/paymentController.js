@@ -13,17 +13,20 @@ exports.createPayment = async (req, res) => {
 
     let payResult;
     if (method === 'wechat') {
-      payResult = await wechatPay.createOrder({ order_no: order.order_no, amount: order.final_amount });
+      payResult = await wechatPay.createOrder(order.order_no, order.final_amount);
     } else if (method === 'alipay') {
-      payResult = await alipay.createOrder({ order_no: order.order_no, amount: order.final_amount });
+      payResult = await alipay.createOrder(order.order_no, order.final_amount);
     } else {
       return fail(res, 'Invalid payment method');
     }
 
-    await Payment.create({ order_id, method, amount: order.final_amount, trade_no: payResult.trade_no || '' });
+    const trade_no = payResult.trade_no || payResult.tradeNo || payResult.prepayId || '';
+    await Payment.create({ order_id, method, amount: order.final_amount, trade_no });
     await Order.update(order_id, { payment_method: method });
 
-    const response = method === 'wechat' ? { prepay_data: payResult.prepay_data } : { pay_url: payResult.payUrl };
+    const response = method === 'wechat'
+      ? { prepay_data: payResult }
+      : { pay_url: payResult.payUrl };
     success(res, response);
   } catch (err) {
     fail(res, err.message);

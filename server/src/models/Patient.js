@@ -3,8 +3,8 @@ const db = require('./db');
 const Patient = {
   async create(data) {
     const [result] = await db.execute(
-      'INSERT INTO patients (name, phone, id_card, address, openid, avatar) VALUES (?, ?, ?, ?, ?, ?)',
-      [data.name, data.phone, data.id_card, data.address, data.openid, data.avatar]
+      'INSERT INTO patients (name, phone, id_card, password, address, openid, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [data.name, data.phone, data.id_card, data.password, data.address, data.openid, data.avatar]
     );
     return result.insertId;
   },
@@ -46,6 +46,11 @@ const Patient = {
     );
     const [[{ total }]] = await db.execute('SELECT COUNT(*) as total FROM patients');
     return { rows, total };
+  },
+
+  async count() {
+    const [[{ total }]] = await db.execute('SELECT COUNT(*) AS total FROM patients');
+    return total;
   }
 };
 

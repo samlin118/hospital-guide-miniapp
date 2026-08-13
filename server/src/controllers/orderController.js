@@ -14,14 +14,15 @@ exports.create = async (req, res) => {
     if (coupon_id) {
       const coupon = await Coupon.findById(coupon_id);
       if (coupon) {
-        finalAmount = applyCoupon(baseAmount, coupon);
-        discountAmount = baseAmount - finalAmount;
+        const result = applyCoupon(baseAmount, coupon);
+        finalAmount = result.finalAmount;
+        discountAmount = result.discountAmount;
       }
     }
     const order = await Order.create({
       order_no, patient_id, guide_id, hospital_id, department_id,
-      date, start_time, duration, amount: baseAmount, discount_amount: discountAmount,
-      final_amount: finalAmount, status: 0
+      date, start_time, duration, base_amount: baseAmount, coupon_id, discount_amount: discountAmount,
+      final_amount: finalAmount, payment_method: null
     });
     success(res, order);
   } catch (err) {
@@ -32,7 +33,7 @@ exports.create = async (req, res) => {
 exports.listByPatient = async (req, res) => {
   try {
     const { status, page = 1, size = 10 } = req.query;
-    const result = await Order.findByPatient(req.user.id, status, Number(page), Number(size));
+    const result = await Order.findByPatient(req.user.id, { status, page: Number(page), pageSize: Number(size) });
     success(res, result);
   } catch (err) {
     fail(res, err.message);
@@ -42,7 +43,7 @@ exports.listByPatient = async (req, res) => {
 exports.listByGuide = async (req, res) => {
   try {
     const { status, page = 1, size = 10 } = req.query;
-    const result = await Order.findByGuide(req.user.id, status, Number(page), Number(size));
+    const result = await Order.findByGuide(req.user.id, { status, page: Number(page), pageSize: Number(size) });
     success(res, result);
   } catch (err) {
     fail(res, err.message);
@@ -65,7 +66,8 @@ exports.getDetail = async (req, res) => {
 
 exports.cancel = async (req, res) => {
   try {
-    const { orderId } = req.params;
+    const orderId = req.params.orderId || req.body.order_id || req.body.orderId;
+    if (!orderId) return fail(res, 'Order id required');
     const order = await Order.findById(orderId);
     if (!order) return fail(res, 'Order not found');
     if (order.status !== 0) return fail(res, 'Order cannot be cancelled');
@@ -79,7 +81,7 @@ exports.cancel = async (req, res) => {
 exports.listAll = async (req, res) => {
   try {
     const { page = 1, size = 10 } = req.query;
-    const result = await Order.list(Number(page), Number(size));
+    const result = await Order.listAll({ page: Number(page), pageSize: Number(size) });
     success(res, result);
   } catch (err) {
     fail(res, err.message);
@@ -88,7 +90,8 @@ exports.listAll = async (req, res) => {
 
 exports.confirmComplete = async (req, res) => {
   try {
-    const { orderId } = req.params;
+    const orderId = req.params.orderId || req.body.order_id || req.body.orderId;
+    if (!orderId) return fail(res, 'Order id required');
     if (req.user.type !== 'guide' && req.user.type !== 'admin') {
       return fail(res, 'Unauthorized');
     }

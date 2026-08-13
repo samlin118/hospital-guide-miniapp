@@ -47,6 +47,11 @@ const Rating = {
   async checkIfRated(orderId) {
     const [rows] = await db.execute('SELECT id FROM ratings WHERE order_id = ?', [orderId]);
     return rows.length > 0;
+  },
+
+  async findByOrder(orderId) {
+    const [rows] = await db.execute('SELECT * FROM ratings WHERE order_id = ?', [orderId]);
+    return rows[0];
   }
 };
 

@@ -4,10 +4,12 @@ const bcrypt = require('bcryptjs');
 
 exports.register = async (req, res) => {
   try {
-    const { name, phone, id_card, address } = req.body;
+    const { name, phone, id_card, address, password } = req.body;
+    if (!password || password.length < 6) return fail(res, 'Password must be at least 6 characters');
     const existing = await Guide.findByPhone(phone);
     if (existing) return fail(res, 'Phone already registered');
-    const guide = await Guide.create({ name, phone, id_card, address });
+    const passwordHash = await bcrypt.hash(password, 10);
+    const guide = await Guide.create({ name, phone, id_card, address, password: passwordHash });
     success(res, { id: guide.id });
   } catch (err) {
     fail(res, err.message);
@@ -49,7 +51,7 @@ exports.getDetail = async (req, res) => {
 exports.listByHospital = async (req, res) => {
   try {
     const { hospitalId, departmentId, page = 1, size = 10, keyword } = req.query;
-    const result = await Guide.list({ keyword, page: Number(page), size: Number(size) });
+    const result = await Guide.list({ keyword, page: Number(page), pageSize: Number(size) });
     success(res, result);
   } catch (err) {
     fail(res, err.message);
@@ -59,7 +61,7 @@ exports.listByHospital = async (req, res) => {
 exports.list = async (req, res) => {
   try {
     const { page = 1, size = 10 } = req.query;
-    const result = await Guide.list({ page: Number(page), size: Number(size) });
+    const result = await Guide.list({ page: Number(page), pageSize: Number(size) });
     success(res, result);
   } catch (err) {
     fail(res, err.message);

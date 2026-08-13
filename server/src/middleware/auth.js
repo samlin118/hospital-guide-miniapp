@@ -14,7 +14,7 @@ function authMiddleware(required = true) {
       }
 
       const token = authHeader.split(' ')[1];
-      const decoded = jwt.verify(token, config.jwtSecret);
+      const decoded = jwt.verify(token, config.jwt.secret);
       req.user = { id: decoded.id, role: decoded.role, type: decoded.type };
       next();
     } catch (err) {

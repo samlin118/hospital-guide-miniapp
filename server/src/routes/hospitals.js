@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const hospitalController = require('../controllers/hospital');
+const hospitalController = require('../controllers/hospitalController');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 router.post('/create', authMiddleware(), adminMiddleware, hospitalController.create);

@@ -4,7 +4,7 @@ const { Coupon, UserCoupon } = require('../models');
 exports.create = async (req, res) => {
   try {
     const { name, discount, min_amount, total_count, expire_days } = req.body;
-    const coupon = await Coupon.create({ name, discount, min_amount, total_count, expire_days });
+    const coupon = await Coupon.create({ name, discount, min_amount, total_count, remain_count: total_count, expire_days });
     success(res, coupon);
   } catch (err) {
     fail(res, err.message);
@@ -29,7 +29,7 @@ exports.issueToUser = async (req, res) => {
     const expire_at = new Date();
     expire_at.setDate(expire_at.getDate() + coupon.expire_days);
 
-    const userCoupon = await UserCoupon.create({ user_id, role, coupon_id, expire_at });
+    const userCoupon = await UserCoupon.create(user_id, role, coupon_id, expire_at);
     success(res, userCoupon);
   } catch (err) {
     fail(res, err.message);

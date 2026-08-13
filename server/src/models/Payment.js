@@ -34,6 +34,24 @@ const Payment = {
       values
     );
     return result;
+  },
+
+  async updateByOrderNo(orderNo, data) {
+    const fields = [];
+    const values = [];
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== undefined) {
+        fields.push(`p.${key} = ?`);
+        values.push(value);
+      }
+    }
+    if (fields.length === 0) return null;
+    values.push(orderNo);
+    const [result] = await db.execute(
+      `UPDATE payments p JOIN orders o ON p.order_id = o.id SET ${fields.join(', ')} WHERE o.order_no = ?`,
+      values
+    );
+    return result;
   }
 };
 

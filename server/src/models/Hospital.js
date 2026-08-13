@@ -26,6 +26,25 @@ const Hospital = {
     return rows;
   },
 
+  async list({ keyword, page = 1, pageSize = 10 } = {}) {
+    const offset = (page - 1) * pageSize;
+    let where = '';
+    const params = [];
+    if (keyword) {
+      where = 'WHERE name LIKE ?';
+      params.push(`%${keyword}%`);
+    }
+    const [rows] = await db.execute(
+      `SELECT * FROM hospitals ${where} ORDER BY created_at DESC LIMIT ? OFFSET ?`,
+      [...params, pageSize, offset]
+    );
+    const [countResult] = await db.execute(
+      `SELECT COUNT(*) AS total FROM hospitals ${where}`,
+      params
+    );
+    return { rows, total: countResult[0].total, page, pageSize };
+  },
+
   async findById(id) {
     const [rows] = await db.execute('SELECT * FROM hospitals WHERE id = ?', [id]);
     return rows[0];

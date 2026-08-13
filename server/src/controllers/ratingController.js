@@ -16,8 +16,7 @@ exports.create = async (req, res) => {
 
     const rating = await Rating.create({ order_id, guide_id: order.guide_id, patient_id: req.user.id, score, content, anonymous: anonymous || false });
 
-    const avg = await Rating.getAvgScoreByGuide(order.guide_id);
-    await Guide.update(order.guide_id, { score: avg });
+    await Guide.updateScore(order.guide_id);
 
     success(res, rating);
   } catch (err) {
@@ -27,8 +26,9 @@ exports.create = async (req, res) => {
 
 exports.listByGuide = async (req, res) => {
   try {
-    const { guideId, page = 1, size = 10 } = req.query;
-    const result = await Rating.findByGuide(guideId, Number(page), Number(size));
+    const guideId = req.params.guideId || req.query.guideId;
+    const { page = 1, size = 10 } = req.query;
+    const result = await Rating.findByGuide(guideId, { page: Number(page), pageSize: Number(size) });
     success(res, result);
   } catch (err) {
     fail(res, err.message);
@@ -38,7 +38,7 @@ exports.listByGuide = async (req, res) => {
 exports.listByPatient = async (req, res) => {
   try {
     const { page = 1, size = 10 } = req.query;
-    const result = await Rating.findByPatient(req.user.id, Number(page), Number(size));
+    const result = await Rating.findByPatient(req.user.id, { page: Number(page), pageSize: Number(size) });
     success(res, result);
   } catch (err) {
     fail(res, err.message);

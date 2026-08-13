@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
 exports.list = async (req, res) => {
   try {
     const { keyword, page = 1, size = 10 } = req.query;
-    const result = await Hospital.list({ keyword, page: Number(page), size: Number(size) });
+    const result = await Hospital.list({ keyword, page: Number(page), pageSize: Number(size) });
     success(res, result);
   } catch (err) {
     fail(res, err.message);
@@ -35,8 +35,10 @@ exports.getDetail = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const { hospitalId } = req.params;
-    await Hospital.update(hospitalId, req.body);
+    const { id, hospital_id, ...data } = req.body;
+    const hospitalId = req.params.hospitalId || id || hospital_id;
+    if (!hospitalId) return fail(res, 'Hospital id required');
+    await Hospital.update(hospitalId, data);
     success(res, null, 'Hospital updated');
   } catch (err) {
     fail(res, err.message);
@@ -45,7 +47,9 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const { hospitalId } = req.params;
+    const { id, hospital_id } = req.body;
+    const hospitalId = req.params.hospitalId || id || hospital_id;
+    if (!hospitalId) return fail(res, 'Hospital id required');
     await Hospital.delete(hospitalId);
     success(res, null, 'Hospital deleted');
   } catch (err) {

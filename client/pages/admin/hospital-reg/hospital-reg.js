@@ -40,7 +40,7 @@ Page({
       return;
     }
     const data = { ...form, level: levels[levelIndex] };
-    const apiCall = editId ? api.updateHospital(editId, data) : api.createHospital(data);
+    const apiCall = editId ? api.updateHospital({ ...data, id: editId }) : api.createHospital(data);
     apiCall.then(res => {
       wx.showToast({ title: editId ? '更新成功' : '添加成功', icon: 'success' });
       this.setData({ form: { name: '', address: '', phone: '' }, levelIndex: 0, editId: null });
@@ -70,7 +70,7 @@ Page({
       content: '确定删除该医院吗？',
       success: (res) => {
         if (res.confirm) {
-          api.deleteHospital(id).then(() => {
+          api.deleteHospital({ id }).then(() => {
             wx.showToast({ title: '删除成功', icon: 'success' });
             this.loadHospitals();
           }).catch(() => {

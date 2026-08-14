@@ -1,4 +1,5 @@
-const mock = require('../../../utils/mock')
+const api = require('../../../utils/api')
+const { CONFIG } = require('../../../utils/config')
 
 Page({
   data: {
@@ -11,15 +12,21 @@ Page({
   onLoad(options) {
     const hospitalId = parseInt(options.hospitalId, 10)
     const departmentId = parseInt(options.departmentId, 10)
-    const allGuides = mock.getGuides()
-    let guides = allGuides
-    if (hospitalId) {
-      guides = guides.filter(g => g.hospital_id === hospitalId)
-    }
-    if (departmentId) {
-      guides = guides.filter(g => g.department_id === departmentId)
-    }
-    this.setData({ guides, hospitalId, departmentId })
+    this.setData({ hospitalId, departmentId })
+    this.fetchGuides()
+  },
+
+  fetchGuides() {
+    const { hospitalId, departmentId } = this.data
+    const price = CONFIG.PRICING.BASE_PRICE
+    api.getGuideList({ size: 100 }).then(res => {
+      if (res.code === 200 && res.data) {
+        let guides = (res.data.rows || []).map(g => ({ ...g, price }))
+        if (hospitalId) guides = guides.filter(g => g.hospital_id === hospitalId)
+        if (departmentId) guides = guides.filter(g => g.department_id === departmentId)
+        this.setData({ guides })
+      }
+    }).catch(() => {})
   },
 
   onSort(e) {
@@ -29,14 +36,6 @@ Page({
       guides.sort((a, b) => b.score - a.score)
     } else if (sortBy === 'price') {
       guides.sort((a, b) => a.price - b.price)
-    } else {
-      const allGuides = mock.getGuides()
-      const { hospitalId, departmentId } = this.data
-      let sorted = allGuides
-      if (hospitalId) sorted = sorted.filter(g => g.hospital_id === hospitalId)
-      if (departmentId) sorted = sorted.filter(g => g.department_id === departmentId)
-      this.setData({ guides: sorted, sortBy })
-      return
     }
     this.setData({ guides, sortBy })
   },

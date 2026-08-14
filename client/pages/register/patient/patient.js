@@ -1,4 +1,4 @@
-const api = require('../../utils/api')
+const api = require('../../../utils/api')
 
 Page({
   data: {
@@ -6,12 +6,39 @@ Page({
     phone: '',
     idCard: '',
     address: '',
-    password: ''
+    password: '',
+    avatar: '',
+    avatarPreview: ''
   },
 
   onInput(e) {
     const { field } = e.currentTarget.dataset
     this.setData({ [field]: e.detail.value })
+  },
+
+  onChooseAvatar() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sizeType: ['compressed'],
+      success: (res) => {
+        const filePath = res.tempFiles[0].tempFilePath
+        this.setData({ avatarPreview: filePath })
+        wx.getFileSystemManager().readFile({
+          filePath,
+          encoding: 'base64',
+          success: (r) => {
+            const ext = ((filePath.split('.').pop()) || 'png').toLowerCase()
+            api.uploadAvatar({ base64: r.data, ext }).then((res2) => {
+              if (res2.code === 200 && res2.data) {
+                const origin = (getApp().globalData.serverUrl || '').replace(/\/api$/, '')
+                this.setData({ avatar: origin + res2.data.url })
+              }
+            }).catch(() => {})
+          }
+        })
+      }
+    })
   },
 
   onRegister() {
@@ -25,10 +52,6 @@ Page({
       wx.showToast({ title: '请输入正确的11位手机号', icon: 'none' })
       return
     }
-    if (!/^\d{17}[\dXx]$/.test(idCard)) {
-      wx.showToast({ title: '请输入正确的18位身份证号', icon: 'none' })
-      return
-    }
     if (!address) {
       wx.showToast({ title: '请输入家庭住址', icon: 'none' })
       return
@@ -38,7 +61,7 @@ Page({
       return
     }
 
-    api.patientRegister({ name, phone, idCard, address, password }).then(() => {
+    api.patientRegister({ name, phone, id_card: idCard, address, password, avatar: this.data.avatar }).then(() => {
       wx.showToast({ title: '注册成功' })
       setTimeout(() => {
         wx.navigateBack()

@@ -45,6 +45,18 @@
   min-width: 0;
 }
 
+.coupon-name-row {
+  display: flex;
+  align-items: center;
+}
+
+.coupon-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+}
+
 .coupon-name {
   font-size: 28rpx;
   font-weight: 600;

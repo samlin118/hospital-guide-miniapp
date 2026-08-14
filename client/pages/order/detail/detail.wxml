@@ -1,4 +1,5 @@
 <view class="detail-page">
+  <home-nav />
   <view class="status-bar" style="background: {{order.statusColor}}">
     <text class="status-icon">{{order.statusIcon}}</text>
     <text class="status-text">{{order.statusText}}</text>

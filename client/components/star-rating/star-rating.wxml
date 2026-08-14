@@ -1,5 +1,5 @@
 <view class="star-rating">
-  <image wx:for="{{5}}" wx:for-index="idx" class="star" 
+  <image wx:for="{{5}}" wx:for-index="idx" wx:key="*this" class="star" 
     src="{{idx < value ? '/images/icons/star-active.png' : (idx < halfValue ? '/images/icons/star-half.png' : '/images/icons/star.png')}}"
     bindtap="{{interactive ? 'onStarTap' : ''}}" data-index="{{idx + 1}}" />
   <text class="star-text" wx:if="{{showText}}">{{value}}分</text>

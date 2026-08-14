@@ -1,4 +1,5 @@
 <view class="order-list-page">
+  <home-nav />
   <view class="tabs">
     <text class="tab {{currentTab === index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="index" bindtap="onTabChange" data-index="{{index}}">{{item}}</text>
   </view>

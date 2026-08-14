@@ -1,4 +1,5 @@
 <view class="rating-page">
+  <home-nav />
   <view class="rating-header">
     <text class="header-title">服务评价</text>
     <text class="header-desc">请为本次导诊服务打分</text>

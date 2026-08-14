@@ -1,4 +1,4 @@
-const mock = require('../../utils/mock')
+const api = require('../../utils/api')
 
 Page({
   data: {
@@ -9,19 +9,24 @@ Page({
   },
 
   onLoad() {
-    const hospitals = mock.getHospitals()
-    this.setData({ allHospitals: hospitals, hospitals })
+    this.fetchHospitals()
   },
 
-  onKeywordInput(e) {
-    this.setData({ keyword: e.detail.value })
+  fetchHospitals() {
+    api.getHospitalList({ size: 100 }).then(res => {
+      if (res.code === 200 && res.data) {
+        const allHospitals = res.data.rows || []
+        this.setData({ allHospitals })
+        this.filterHospitals()
+      }
+    }).catch(() => {})
   },
 
-  onSearch() {
+  filterHospitals() {
     const { keyword, filterLevel, allHospitals } = this.data
     let list = [...allHospitals]
     if (keyword) {
-      list = list.filter(h => h.name.includes(keyword))
+      list = list.filter(h => h.name && h.name.includes(keyword))
     }
     if (filterLevel) {
       list = list.filter(h => h.level === filterLevel)
@@ -29,18 +34,18 @@ Page({
     this.setData({ hospitals: list })
   },
 
+  onKeywordInput(e) {
+    this.setData({ keyword: e.detail.value })
+  },
+
+  onSearch() {
+    this.filterHospitals()
+  },
+
   onFilterLevel(e) {
     const level = e.currentTarget.dataset.level
-    const { keyword, allHospitals } = this.data
     this.setData({ filterLevel: level })
-    let list = [...allHospitals]
-    if (keyword) {
-      list = list.filter(h => h.name.includes(keyword))
-    }
-    if (level) {
-      list = list.filter(h => h.level === level)
-    }
-    this.setData({ hospitals: list })
+    this.filterHospitals()
   },
 
   onHospitalTap(e) {

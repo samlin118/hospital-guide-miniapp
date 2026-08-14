@@ -87,6 +87,9 @@ module.exports = {
   getMyCoupons: () => request('/coupons/my'),
   getCouponList: () => request('/coupons/list'),
 
+  // 上传
+  uploadAvatar: (data) => request('/upload/avatar', 'POST', data),
+
   // 管理员
   adminDashboard: () => request('/admin/dashboard'),
   adminStatistics: (params) => request('/admin/statistics?' + objToParams(params)),

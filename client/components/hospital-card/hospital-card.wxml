@@ -4,7 +4,7 @@
     <view class="hospital-name">{{name}}</view>
     <view class="hospital-tags">
       <text class="tag level">{{level}}</text>
-      <text class="tag score">★ {{score}}</text>
+      <text class="tag score" wx:if="{{score}}">★ {{score}}</text>
     </view>
     <view class="hospital-address">{{address}}</view>
     <view class="hospital-distance" wx:if="{{distance}}">{{distance}}</view>

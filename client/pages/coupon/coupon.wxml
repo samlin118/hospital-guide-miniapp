@@ -1,4 +1,5 @@
 <view class="coupon-page">
+  <home-nav />
   <view class="coupon-list">
     <view class="coupon-card" wx:for="{{coupons}}" wx:key="id">
       <view class="coupon-left">

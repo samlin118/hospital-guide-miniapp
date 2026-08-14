@@ -1,9 +1,10 @@
-/* 主题色 */
---primary: #07C160;
---primary-light: #E8F8EE;
---primary-dark: #06AD56;
---secondary: #1989FA;
---secondary-light: #E8F4FD;
+page {
+  /* 主题色 */
+  --primary: #07C160;
+  --primary-light: #E8F8EE;
+  --primary-dark: #06AD56;
+  --secondary: #1989FA;
+  --secondary-light: #E8F4FD;
 
 /* 功能色 */
 --success: #07C160;
@@ -53,5 +54,6 @@
 --nav-height: 88rpx;
 --tab-height: 100rpx;
 
-/* 美团风格卡片 */
---card-radius: 16rpx;
+  /* 美团风格卡片 */
+  --card-radius: 16rpx;
+}

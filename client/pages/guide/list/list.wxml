@@ -1,4 +1,5 @@
 <view class="guide-list-page">
+  <home-nav />
   <view class="filter-bar">
     <text class="filter-item {{sortBy === 'default' ? 'active' : ''}}" bindtap="onSort" data-sort="default">综合排序</text>
     <text class="filter-item {{sortBy === 'score' ? 'active' : ''}}" bindtap="onSort" data-sort="score">评分最高</text>

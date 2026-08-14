@@ -1,4 +1,5 @@
 <view class="dept-page">
+  <home-nav />
   <view class="hospital-info">
     <text class="hosp-name">{{hospital.name}}</text>
     <text class="hosp-addr">{{hospital.address}}</text>

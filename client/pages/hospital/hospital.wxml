@@ -1,4 +1,5 @@
 <view class="hospital-page">
+  <home-nav />
   <view class="search-box">
     <input class="search-input" placeholder="搜索医院名称" value="{{keyword}}" bindinput="onKeywordInput" />
     <button class="search-btn" bindtap="onSearch">搜索</button>

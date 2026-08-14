@@ -4,12 +4,12 @@ const bcrypt = require('bcryptjs');
 
 exports.register = async (req, res) => {
   try {
-    const { name, phone, id_card, address, password } = req.body;
+    const { name, phone, id_card, address, password, avatar } = req.body;
     if (!password || password.length < 6) return fail(res, 'Password must be at least 6 characters');
     const existing = await Patient.findByPhone(phone);
     if (existing) return fail(res, 'Phone already registered');
     const passwordHash = await bcrypt.hash(password, 10);
-    const patient = await Patient.create({ name, phone, id_card, address, password: passwordHash });
+    const patient = await Patient.create({ name, phone, id_card, address, password: passwordHash, avatar });
     success(res, { id: patient.id });
   } catch (err) {
     fail(res, err.message);

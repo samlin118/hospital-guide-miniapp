@@ -1,6 +1,6 @@
-const api = require('../../utils/api');
-const util = require('../../utils/util');
-const { CONFIG, calculateAmount } = require('../../utils/config');
+const api = require('../../../utils/api');
+const util = require('../../../utils/util');
+const { CONFIG, calculateAmount } = require('../../../utils/config');
 
 Page({
   data: {

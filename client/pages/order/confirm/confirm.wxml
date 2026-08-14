@@ -1,4 +1,5 @@
 <view class="confirm-page">
+  <home-nav />
   <view class="section">
     <view class="info-row">
       <text class="info-label">导诊员</text>

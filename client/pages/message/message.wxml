@@ -1,4 +1,5 @@
 <view class="message-page">
+  <home-nav />
   <view class="message-list">
     <view class="message-item" wx:for="{{messages}}" wx:key="id">
       <view class="msg-header">

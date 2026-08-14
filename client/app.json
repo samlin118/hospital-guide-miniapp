@@ -61,6 +61,7 @@
   },
   "usingComponents": {
     "nav-bar": "/components/nav-bar/nav-bar",
+    "home-nav": "/components/home-nav/home-nav",
     "hospital-card": "/components/hospital-card/hospital-card",
     "guide-card": "/components/guide-card/guide-card",
     "star-rating": "/components/star-rating/star-rating",

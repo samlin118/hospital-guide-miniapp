@@ -41,14 +41,13 @@ Page({
       return
     }
     api.createRating({
-      orderId: this.data.orderId,
-      guideId: this.data.guideId,
+      order_id: this.data.orderId,
       score: this.data.score,
       content: this.data.content,
       anonymous: this.data.anonymous
     }).then(() => {
       wx.showToast({ title: '评价成功' })
-      wx.navigateTo({ url: '/pages/order-list/order-list' })
+      wx.switchTab({ url: '/pages/order/list/list' })
     }).catch(() => {
       wx.showToast({ title: '提交失败，请重试', icon: 'none' })
     })

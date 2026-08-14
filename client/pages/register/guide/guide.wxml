@@ -1,7 +1,12 @@
 <view class="register-page">
+  <home-nav />
   <view class="register-header">
     <text class="register-title">导诊员注册</text>
     <text class="register-desc">填写个人信息完成注册</text>
+  </view>
+  <view class="avatar-picker" bindtap="onChooseAvatar">
+    <image class="avatar-preview" src="{{avatarPreview || '/images/default/avatar.png'}}" mode="aspectFill" />
+    <text class="avatar-hint">点击上传头像</text>
   </view>
   <view class="register-form">
     <view class="form-item">

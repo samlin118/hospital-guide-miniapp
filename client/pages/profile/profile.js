@@ -38,13 +38,52 @@ Page({
     }).catch(() => {});
   },
 
-  onOrderTap(e) {
-    const status = e.currentTarget.dataset.status;
-    wx.switchTab({ url: `/pages/order/order?status=${status}` });
+  onAvatarTap() {
+    const role = app.globalData.role || '';
+    if (!role || role === 'admin') {
+      wx.showToast({ title: '登录后即可更换头像', icon: 'none' });
+      return;
+    }
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sizeType: ['compressed'],
+      success: (res) => {
+        const filePath = res.tempFiles[0].tempFilePath;
+        wx.getFileSystemManager().readFile({
+          filePath,
+          encoding: 'base64',
+          success: (r) => {
+            const ext = ((filePath.split('.').pop()) || 'png').toLowerCase();
+            api.uploadAvatar({ base64: r.data, ext }).then((res2) => {
+              if (res2.code === 200 && res2.data) {
+                const origin = (app.globalData.serverUrl || '').replace(/\/api$/, '');
+                const avatar = origin + res2.data.url;
+                const update = role === 'guide'
+                  ? api.updateGuideProfile({ avatar })
+                  : api.updatePatientProfile({ avatar });
+                update.then(() => {
+                  const userInfo = { ...this.data.userInfo, avatar };
+                  app.setUserInfo(userInfo, app.globalData.token, role);
+                  this.setData({ userInfo });
+                  wx.showToast({ title: '头像已更新', icon: 'success' });
+                }).catch(() => {
+                  wx.showToast({ title: '更新失败', icon: 'none' });
+                });
+              }
+            }).catch(() => {});
+          }
+        });
+      }
+    });
+  },
+
+  onOrderTap() {
+    wx.switchTab({ url: '/pages/order/list/list' });
   },
 
   onMyOrders() {
-    wx.switchTab({ url: '/pages/order/order' });
+    wx.switchTab({ url: '/pages/order/list/list' });
   },
 
   onMyCoupons() {

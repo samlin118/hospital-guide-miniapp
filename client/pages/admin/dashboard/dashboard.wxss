@@ -6,6 +6,22 @@
 .menu-list { margin: 10rpx 30rpx; background: #fff; border-radius: var(--card-radius); overflow: hidden; }
 .menu-item { display: flex; align-items: center; padding: 30rpx 24rpx; border-bottom: 1rpx solid var(--divider); }
 .menu-item:last-child { border-bottom: none; }
-.menu-icon { width: 40rpx; height: 40rpx; margin-right: 20rpx; }
+.menu-icon-wrap {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.icon-hospital { background: #E8F8EE; }
+.icon-coupon { background: #FFF3E0; }
+.icon-order { background: #E8F4FD; }
+.icon-message { background: #F0E8FD; }
+
+.menu-icon { width: 40rpx; height: 40rpx; }
 .menu-text { flex: 1; font-size: 28rpx; }
 .menu-arrow { width: 14rpx; height: 24rpx; }

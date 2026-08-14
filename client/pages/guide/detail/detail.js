@@ -1,4 +1,4 @@
-const mock = require('../../../utils/mock')
+const api = require('../../../utils/api')
 
 Page({
   data: {
@@ -8,10 +8,12 @@ Page({
 
   onLoad(options) {
     const guideId = parseInt(options.guideId, 10)
-    const allGuides = mock.getGuides()
-    const guide = allGuides.find(g => g.id === guideId) || {}
-    const ratings = mock.getRatings(guideId)
-    this.setData({ guide, ratings })
+    api.getGuideDetail(guideId).then(res => {
+      if (res.code === 200 && res.data) {
+        const { ratings, ...guide } = res.data
+        this.setData({ guide, ratings: ratings || [] })
+      }
+    }).catch(() => {})
   },
 
   onBook() {
@@ -21,6 +23,6 @@ Page({
       return
     }
     const guideId = this.data.guide.id
-    wx.navigateTo({ url: `/pages/order/order?guideId=${guideId}` })
+    wx.navigateTo({ url: `/pages/order/confirm/confirm?guideId=${guideId}` })
   },
 })

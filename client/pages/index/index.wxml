@@ -12,7 +12,9 @@
 
   <view class="quick-nav">
     <view class="nav-item" wx:for="{{quickNavs}}" wx:key="id" bindtap="onNavTap" data-url="{{item.url}}">
-      <image class="nav-icon" src="{{item.icon}}" />
+      <view class="nav-icon-wrap {{item.bg}}">
+        <image class="nav-icon" src="{{item.icon}}" />
+      </view>
       <text class="nav-text">{{item.name}}</text>
     </view>
   </view>

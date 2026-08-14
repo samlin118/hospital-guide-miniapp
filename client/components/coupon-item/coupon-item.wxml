@@ -3,7 +3,10 @@
     <text class="coupon-discount">{{discount}}折</text>
   </view>
   <view class="coupon-center">
-    <text class="coupon-name">{{name}}</text>
+    <view class="coupon-name-row">
+      <image class="coupon-icon" src="/images/icons/coupon.png" />
+      <text class="coupon-name">{{name}}</text>
+    </view>
     <text class="coupon-condition">满{{minAmount}}元可用</text>
     <text class="coupon-expire">{{expireText}}</text>
   </view>

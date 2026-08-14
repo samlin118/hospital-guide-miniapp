@@ -45,11 +45,45 @@ const MOCK_COUPONS = [
   { id: 3, name: '7.5折体验券', discount: 7.5, min_amount: 80, total_count: 30, remain_count: 10, expire_days: 7 }
 ];
 
+const MOCK_RATINGS = [
+  { id: 1, guide_id: 1, score: 5, anonymous: true, content: '服务非常耐心，全程陪同挂号取药，很省心！' },
+  { id: 2, guide_id: 1, score: 4, anonymous: false, content: '路线指引清晰，节省了很多排队时间。' },
+  { id: 3, guide_id: 2, score: 5, anonymous: true, content: '导诊员很专业，态度特别好。' },
+  { id: 4, guide_id: 2, score: 4, anonymous: true, content: '整体不错，提前告知了注意事项。' },
+  { id: 5, guide_id: 3, score: 5, anonymous: false, content: '带孩子看病全程帮忙，非常贴心。' }
+];
+
+function getBanners() {
+  return MOCK_BANNERS;
+}
+
+function getHospitals() {
+  return MOCK_HOSPITALS;
+}
+
+function getDepartments() {
+  return MOCK_DEPARTMENTS;
+}
+
+function getGuides() {
+  return MOCK_GUIDES;
+}
+
+function getRatings(guideId) {
+  return MOCK_RATINGS.filter(r => !guideId || r.guide_id === guideId);
+}
+
 module.exports = {
   MOCK_HOSPITALS,
   MOCK_DEPARTMENTS,
   MOCK_GUIDES,
   MOCK_BANNERS,
   MOCK_ORDERS,
-  MOCK_COUPONS
+  MOCK_COUPONS,
+  MOCK_RATINGS,
+  getBanners,
+  getHospitals,
+  getDepartments,
+  getGuides,
+  getRatings
 };

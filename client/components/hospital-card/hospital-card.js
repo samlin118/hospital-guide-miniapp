@@ -1,7 +1,7 @@
 Component({
   properties: {
     id: {
-      type: [String, Number],
+      type: Number,
       value: ''
     },
     name: {
@@ -21,7 +21,7 @@ Component({
       value: ''
     },
     score: {
-      type: [String, Number],
+      type: Number,
       value: ''
     },
     distance: {

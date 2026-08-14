@@ -1,4 +1,4 @@
-const mock = require('../../utils/mock')
+const api = require('../../utils/api')
 
 Page({
   data: {
@@ -8,11 +8,12 @@ Page({
 
   onLoad(options) {
     const hospitalId = parseInt(options.hospital_id, 10)
-    const hospitals = mock.getHospitals()
-    const hospital = hospitals.find(h => h.id === hospitalId) || {}
-    const allDepts = mock.getDepartments()
-    const departments = allDepts.filter(d => d.hospital_id === hospitalId)
-    this.setData({ hospital, departments })
+    api.getHospitalDetail(hospitalId).then(res => {
+      if (res.code === 200 && res.data) {
+        const { departments, ...hospital } = res.data
+        this.setData({ hospital, departments: departments || [] })
+      }
+    }).catch(() => {})
   },
 
   onDeptTap(e) {

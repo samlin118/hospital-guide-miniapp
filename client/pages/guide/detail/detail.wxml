@@ -1,10 +1,11 @@
 <view class="detail-page">
+  <home-nav />
   <view class="guide-header">
     <image class="guide-avatar" src="{{guide.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
     <view class="guide-meta">
       <text class="guide-name">{{guide.name}}</text>
       <view class="guide-stats">
-        <star-rating value="{{guide.score}}" size="28" />
+        <star-rating value="{{guide.score || 0}}" size="28" />
         <text class="guide-score">{{guide.score}}分</text>
         <text class="guide-count">已服务{{guide.service_count}}人</text>
       </view>
@@ -31,8 +32,8 @@
       <text class="section-title">用户评价 ({{ratings.length}})</text>
     </view>
     <view class="rating-summary">
-      <text class="rating-score">{{guide.score}}分</text>
-      <star-rating value="{{guide.score}}" size="24" />
+      <text class="rating-score">{{guide.score || 0}}分</text>
+      <star-rating value="{{guide.score || 0}}" size="24" />
     </view>
     <view class="rating-item" wx:for="{{ratings}}" wx:key="id">
       <view class="rating-user">

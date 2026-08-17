@@ -128,6 +128,19 @@ CREATE TABLE messages (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- 导诊员-医院-科室 分配表：一个导诊员可服务多家医院的多个科室
+CREATE TABLE guide_assignments (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  guide_id INT NOT NULL,
+  hospital_id INT NOT NULL,
+  department_id INT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_guide_hosp_dept (guide_id, hospital_id, department_id),
+  FOREIGN KEY (guide_id) REFERENCES guides(id) ON DELETE CASCADE,
+  FOREIGN KEY (hospital_id) REFERENCES hospitals(id) ON DELETE CASCADE,
+  FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE
+);
+
 CREATE TABLE admins (
   id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(50) NOT NULL UNIQUE,

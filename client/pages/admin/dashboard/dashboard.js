@@ -19,6 +19,10 @@ Page({
     wx.navigateTo({ url: '/pages/admin/hospital-reg/hospital-reg' });
   },
 
+  onGuideAssign() {
+    wx.navigateTo({ url: '/pages/admin/guide-assign/guide-assign' });
+  },
+
   onCouponMgmt() {
     wx.navigateTo({ url: '/pages/admin/coupon-mgmt/coupon-mgmt' });
   },

@@ -19,11 +19,12 @@ Page({
   fetchGuides() {
     const { hospitalId, departmentId } = this.data
     const price = CONFIG.PRICING.BASE_PRICE
-    api.getGuideList({ size: 100 }).then(res => {
+    const params = { size: 100 }
+    if (hospitalId) params.hospitalId = hospitalId
+    if (departmentId) params.departmentId = departmentId
+    api.getGuideList(params).then(res => {
       if (res.code === 200 && res.data) {
-        let guides = (res.data.rows || []).map(g => ({ ...g, price }))
-        if (hospitalId) guides = guides.filter(g => g.hospital_id === hospitalId)
-        if (departmentId) guides = guides.filter(g => g.department_id === departmentId)
+        const guides = (res.data.rows || []).map(g => ({ ...g, price }))
         this.setData({ guides })
       }
     }).catch(() => {})

@@ -1,0 +1,45 @@
+<view class="admin-page">
+  <home-nav />
+  <view class="form-section">
+    <view class="form-item">
+      <text class="form-label">选择导诊员</text>
+      <picker mode="selector" range="{{guides}}" range-key="name" value="{{guideIndex}}" bindchange="onGuideChange">
+        <view class="picker-value">{{selectedGuide ? selectedGuide.name : '请选择导诊员'}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <text class="form-label">选择医院</text>
+      <picker mode="selector" range="{{hospitals}}" range-key="name" value="{{hospitalIndex}}" bindchange="onHospitalChange">
+        <view class="picker-value">{{selectedHospital ? selectedHospital.name : '请选择医院'}}</view>
+      </picker>
+    </view>
+    <view class="form-item" wx:if="{{departments.length}}">
+      <text class="form-label">选择科室（可多选）</text>
+      <view class="dept-check-list">
+        <view class="dept-check-item" wx:for="{{departments}}" wx:key="id"
+          bindtap="onDeptToggle" data-id="{{item.id}}">
+          <view class="check-box {{checkedDepts[item.id] ? 'checked' : ''}}">
+            <text wx:if="{{checkedDepts[item.id]}}" class="check-icon">✓</text>
+          </view>
+          <text class="dept-check-name">{{item.name}}</text>
+        </view>
+      </view>
+      <text class="dept-hint">勾选后保存，即可把该导诊员分配到所选科室</text>
+    </view>
+    <view class="form-item" wx:else>
+      <text class="dept-hint">（该医院暂无科室，请先在后台补充科室）</text>
+    </view>
+    <button class="submit-btn" bindtap="onSave">保存分配</button>
+  </view>
+
+  <view class="list-section">
+    <text class="list-title">当前分配情况</text>
+    <view class="assign-group" wx:for="{{currentAssignments}}" wx:key="key">
+      <view class="assign-row">
+        <text class="assign-hosp">{{item.hospital_name}}</text>
+        <text class="assign-dept">{{item.department_name}}</text>
+      </view>
+    </view>
+    <empty-state wx:if="{{currentAssignments.length === 0}}" text="该导诊员暂无任何医院科室分配" />
+  </view>
+</view>

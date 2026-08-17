@@ -54,6 +54,8 @@ module.exports = {
   getGuideProfile: () => request('/guides/profile'),
   getGuideDetail: (guideId) => request('/guides/detail/' + guideId),
   getGuideList: (params) => request('/guides/list?' + objToParams(params)),
+  getGuideAssignments: (guideId) => request('/guides/assignments/' + guideId),
+  assignGuideDepartments: (data) => request('/guides/assignments', 'POST', data),
 
   // 医院
   getHospitalList: (params) => request('/hospitals/list?' + objToParams(params)),

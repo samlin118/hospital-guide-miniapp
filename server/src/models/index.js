@@ -3,6 +3,7 @@ const Admin = require('./Admin');
 const Coupon = require('./Coupon');
 const Department = require('./Department');
 const Guide = require('./Guide');
+const GuideAssignment = require('./GuideAssignment');
 const Hospital = require('./Hospital');
 const Message = require('./Message');
 const Order = require('./Order');
@@ -16,6 +17,7 @@ module.exports = {
   Coupon,
   Department,
   Guide,
+  GuideAssignment,
   Hospital,
   Message,
   Order,

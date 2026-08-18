@@ -24,6 +24,22 @@ const Patient = {
     return rows[0];
   },
 
+  // 某导诊员的患者（有订单关系的患者，含订单数/最近下单时间）
+  async findByGuide(guideId) {
+    const [rows] = await db.execute(
+      `SELECT p.id, p.name, p.phone, p.address, p.avatar,
+              COUNT(o.id) AS order_count,
+              MAX(o.created_at) AS last_order_at
+       FROM patients p
+       JOIN orders o ON o.patient_id = p.id
+       WHERE o.guide_id = ?
+       GROUP BY p.id
+       ORDER BY last_order_at DESC`,
+      [guideId]
+    );
+    return rows;
+  },
+
   async update(id, data) {
     const fields = [];
     const values = [];

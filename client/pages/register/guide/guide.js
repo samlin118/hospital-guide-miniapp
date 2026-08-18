@@ -1,4 +1,5 @@
 const api = require('../../../utils/api')
+const app = getApp()
 
 Page({
   data: {
@@ -14,6 +15,12 @@ Page({
   onInput(e) {
     const { field } = e.currentTarget.dataset
     this.setData({ [field]: e.detail.value })
+  },
+
+  onLoad(options) {
+    if (options && options.phone) {
+      this.setData({ phone: options.phone })
+    }
   },
 
   onChooseAvatar() {
@@ -62,12 +69,20 @@ Page({
     }
 
     api.guideRegister({ name, phone, id_card: idCard, address, password, avatar: this.data.avatar }).then(() => {
-      wx.showToast({ title: '注册成功' })
+      wx.showLoading({ title: '注册成功，自动登录中' })
+      return api.guideLogin({ phone, password })
+    }).then(res => {
+      wx.hideLoading()
+      const data = (res && res.data) || {}
+      const user = data.guide || {}
+      app.setUserInfo({ ...user, role: 'guide' }, data.token, 'guide')
+      wx.showToast({ title: '注册成功', icon: 'success' })
       setTimeout(() => {
-        wx.navigateBack()
-      }, 1500)
+        wx.switchTab({ url: '/pages/index/index' })
+      }, 1200)
     }).catch(err => {
-      wx.showToast({ title: err.message || '注册失败', icon: 'none' })
+      wx.hideLoading()
+      wx.showToast({ title: (err && err.message) || '注册失败', icon: 'none' })
     })
   },
 

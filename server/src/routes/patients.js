@@ -6,6 +6,7 @@ const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 router.post('/register', patientController.register);
 router.post('/profile', authMiddleware(), patientController.updateProfile);
 router.get('/profile', authMiddleware(), patientController.getProfile);
+router.get('/by-guide', authMiddleware(), patientController.listByGuide);
 router.get('/list', authMiddleware(), adminMiddleware, patientController.list);
 
 module.exports = router;

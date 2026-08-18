@@ -60,7 +60,22 @@ Page({
       app.setUserInfo({ ...user, role }, data.token, role)
       wx.switchTab({ url: '/pages/index/index' })
     }).catch(err => {
-      wx.showToast({ title: err.message || '登录失败', icon: 'none' })
+      const msg = (err && err.message) || '登录失败'
+      if (/尚未注册|not found/i.test(msg)) {
+        wx.showModal({
+          title: '提示',
+          content: `手机号 ${phone} 尚未注册，是否立即注册？`,
+          confirmText: '去注册',
+          success: (r) => {
+            if (r.confirm) {
+              const path = role === 'patient' ? 'patient/patient' : 'guide/guide'
+              wx.navigateTo({ url: `/pages/register/${path}?phone=${phone}` })
+            }
+          }
+        })
+        return
+      }
+      wx.showToast({ title: msg, icon: 'none' })
     })
   },
 

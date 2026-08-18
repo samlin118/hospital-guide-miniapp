@@ -45,3 +45,14 @@ exports.list = async (req, res) => {
     fail(res, err.message);
   }
 };
+
+// 导诊员查看自己的患者（有订单关系的患者）
+exports.listByGuide = async (req, res) => {
+  try {
+    if (req.user.type !== 'guide') return fail(res, 'Unauthorized');
+    const rows = await Patient.findByGuide(req.user.id);
+    success(res, { rows, total: rows.length });
+  } catch (err) {
+    fail(res, err.message);
+  }
+};

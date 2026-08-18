@@ -4,7 +4,7 @@
     <view class="message-item" wx:for="{{messages}}" wx:key="id">
       <view class="msg-header">
         <text class="msg-role">{{item.role === 'patient' ? '患者' : '导诊员'}}</text>
-        <text class="msg-time">{{item.created_at}}</text>
+        <text class="msg-time">{{item.timeText || item.created_at}}</text>
       </view>
       <text class="msg-content">{{item.content}}</text>
       <view class="msg-reply" wx:if="{{item.reply}}">

@@ -10,7 +10,7 @@
         <text class="order-status" style="color: {{item.statusColor}}">{{item.statusText}}</text>
       </view>
       <view class="order-body">
-        <text class="order-guide">导诊员: {{item.guide_name || '未知'}}</text>
+        <text class="order-guide">{{item.peerLabel}}: {{item.peerName}}</text>
         <text class="order-time">{{item.date}} {{item.start_time}} ({{item.duration}}小时)</text>
       </view>
       <view class="order-footer">

@@ -47,6 +47,7 @@ module.exports = {
   patientRegister: (data) => request('/patients/register', 'POST', data),
   updatePatientProfile: (data) => request('/patients/profile', 'POST', data),
   getPatientProfile: () => request('/patients/profile'),
+  getMyPatients: () => request('/patients/by-guide'),
 
   // 导诊员
   guideRegister: (data) => request('/guides/register', 'POST', data),

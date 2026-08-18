@@ -26,9 +26,12 @@ Page({
     const statuses = [0, 1, 3, 4];
     const counts = {};
     statuses.forEach(s => counts[s] = 0);
-    api.getMyOrders({}).then(res => {
+    const isGuide = app.globalData.role === 'guide';
+    const apiCall = isGuide ? api.getGuideOrders({}) : api.getMyOrders({});
+    apiCall.then(res => {
       if (res.data) {
-        res.data.forEach(order => {
+        const rows = res.data.rows || res.data.list || (Array.isArray(res.data) ? res.data : []);
+        rows.forEach(order => {
           if (order.status !== undefined) {
             counts[order.status] = (counts[order.status] || 0) + 1;
           }

@@ -1,0 +1,16 @@
+.admin-page { padding: 30rpx; background: var(--bg-primary); min-height: 100vh; }
+.msg-list { display: flex; flex-direction: column; gap: 24rpx; }
+.msg-card { background: #fff; border-radius: var(--card-radius); padding: 26rpx; box-shadow: var(--shadow-sm); }
+.msg-header { display: flex; align-items: center; margin-bottom: 14rpx; }
+.msg-role { font-size: 24rpx; color: #07C160; background: rgba(7,193,96,0.1); padding: 4rpx 16rpx; border-radius: 20rpx; margin-right: 16rpx; }
+.msg-role.guide { color: #576B95; background: rgba(87,107,149,0.12); }
+.msg-user { font-size: 24rpx; color: var(--text-hint); flex: 1; }
+.msg-time { font-size: 22rpx; color: var(--text-hint); }
+.msg-content { font-size: 28rpx; color: var(--text-primary); line-height: 1.5; display: block; }
+.msg-reply { margin-top: 16rpx; background: var(--bg-primary); border-radius: var(--radius-md); padding: 16rpx 20rpx; }
+.reply-label { font-size: 24rpx; color: #07C160; margin-right: 12rpx; }
+.reply-content { font-size: 26rpx; color: var(--text-secondary); }
+.msg-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16rpx; }
+.reply-status { font-size: 24rpx; color: var(--warning); }
+.reply-status.done { color: #07C160; }
+.reply-btn { font-size: 26rpx; color: #fff; background: linear-gradient(135deg, #07C160, #06AD56); padding: 8rpx 28rpx; border-radius: 24rpx; }

@@ -1,0 +1,22 @@
+<view class="admin-page">
+  <home-nav />
+  <view class="msg-list">
+    <view class="msg-card" wx:for="{{messages}}" wx:key="id">
+      <view class="msg-header">
+        <text class="msg-role {{item.role === 'guide' ? 'guide' : ''}}">{{item.roleText}}</text>
+        <text class="msg-user">用户ID: {{item.user_id}}</text>
+        <text class="msg-time">{{item.timeText}}</text>
+      </view>
+      <text class="msg-content">{{item.content}}</text>
+      <view class="msg-reply" wx:if="{{item.reply}}">
+        <text class="reply-label">回复:</text>
+        <text class="reply-content">{{item.reply}}</text>
+      </view>
+      <view class="msg-footer">
+        <text class="reply-status {{item.replied ? 'done' : ''}}">{{item.repliedText}}</text>
+        <text class="reply-btn" bindtap="onReply" data-id="{{item.id}}">{{item.replied ? '修改回复' : '回复'}}</text>
+      </view>
+    </view>
+    <empty-state wx:if="{{messages.length === 0}}" text="暂无留言" />
+  </view>
+</view>

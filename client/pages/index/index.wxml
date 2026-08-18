@@ -1,7 +1,7 @@
 <view class="index-page">
   <view class="search-bar" bindtap="onSearch">
     <image class="search-icon" src="/images/icons/search.png" />
-    <text class="search-text">搜索医院或导诊员</text>
+    <text class="search-text">{{role === 'guide' ? '搜索医院或患者' : '搜索医院或导诊员'}}</text>
   </view>
 
   <swiper class="banner" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" circular="{{true}}">
@@ -34,17 +34,27 @@
 
   <view class="section">
     <view class="section-header">
-      <text class="section-title">推荐导诊员</text>
-      <text class="section-more" bindtap="onMoreGuide">查看更多 ></text>
+      <text class="section-title">{{role === 'guide' ? '我的患者' : '推荐导诊员'}}</text>
+      <text class="section-more" bindtap="onMoreGuide">{{role === 'guide' ? '查看订单 >' : '查看更多 >'}}</text>
     </view>
     <scroll-view class="guide-scroll" scroll-x="{{true}}" show-scrollbar="{{false}}">
       <view class="guide-scroll-inner">
-        <view class="guide-item" wx:for="{{guides}}" wx:key="id" bindtap="onGuideTap" data-id="{{item.id}}">
-          <image class="guide-avatar" src="{{item.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
-          <text class="guide-name">{{item.name}}</text>
-          <text class="guide-score">★ {{item.score}}</text>
-          <text class="guide-price">{{item.price}}元/时</text>
-        </view>
+        <block wx:if="{{role === 'guide'}}">
+          <view class="guide-item" wx:for="{{patients}}" wx:key="id" bindtap="onPatientTap" data-id="{{item.id}}">
+            <image class="guide-avatar" src="{{item.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+            <text class="guide-name">{{item.name}}</text>
+            <text class="guide-score">{{item.phone}}</text>
+            <text class="guide-price">{{item.order_count}}单</text>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="guide-item" wx:for="{{guides}}" wx:key="id" bindtap="onGuideTap" data-id="{{item.id}}">
+            <image class="guide-avatar" src="{{item.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+            <text class="guide-name">{{item.name}}</text>
+            <text class="guide-score">★ {{item.score}}</text>
+            <text class="guide-price">{{item.price}}元/时</text>
+          </view>
+        </block>
       </view>
     </scroll-view>
   </view>

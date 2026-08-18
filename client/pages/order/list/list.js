@@ -1,5 +1,6 @@
 const api = require('../../../utils/api');
 const util = require('../../../utils/util');
+const app = getApp();
 
 Page({
   data: {
@@ -18,15 +19,20 @@ Page({
 
   loadOrders() {
     util.showLoading();
-    api.getMyOrders().then(res => {
+    const isGuide = app.globalData.role === 'guide';
+    const apiCall = isGuide ? api.getGuideOrders() : api.getMyOrders();
+    apiCall.then(res => {
       util.hideLoading();
       if (res.code === 200 && res.data) {
-        const orders = (res.data.list || res.data).map(item => {
+        const rows = res.data.rows || res.data.list || (Array.isArray(res.data) ? res.data : []);
+        const orders = rows.map(item => {
           const statusInfo = util.getOrderStatusText(item.status);
           return {
             ...item,
             statusText: statusInfo.text,
-            statusColor: statusInfo.color
+            statusColor: statusInfo.color,
+            peerLabel: isGuide ? '患者' : '导诊员',
+            peerName: isGuide ? (item.patient_name || '未知') : (item.guide_name || '未知')
           };
         });
         this.setData({ orders });

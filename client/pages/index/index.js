@@ -1,5 +1,6 @@
 const api = require('../../utils/api')
 const { CONFIG } = require('../../utils/config')
+const app = getApp()
 
 Page({
   data: {
@@ -8,17 +9,45 @@ Page({
       { id: 2, image: '', url: '', title: '金牌导诊员限时特惠' },
       { id: 3, image: '', url: '', title: '三甲医院导诊服务' }
     ],
-    quickNavs: [
-      { id: 1, name: '找医院', icon: '/images/icons/hospital.png', url: '/pages/hospital/hospital', bg: 'nav-bg-hospital' },
-      { id: 2, name: '找导诊', icon: '/images/icons/guide.png', url: '/pages/guide/list/list', bg: 'nav-bg-guide' },
-      { id: 3, name: '我的订单', icon: '/images/icons/order.png', url: '/pages/order/list/list', bg: 'nav-bg-order' },
-      { id: 4, name: '个人中心', icon: '/images/icons/mine.png', url: '/pages/profile/profile', bg: 'nav-bg-mine' },
-    ],
+    quickNavs: [],
+    role: '',
     hospitals: [],
     guides: [],
+    patients: [],
   },
 
   onLoad() {
+    if (app.isLoggedIn()) {
+      this.initRole()
+      this.fetchHomeData()
+    }
+  },
+
+  onShow() {
+    if (!app.isLoggedIn()) {
+      wx.reLaunch({ url: '/pages/login/login' })
+    } else {
+      this.initRole()
+    }
+  },
+
+  initRole() {
+    const role = app.globalData.role || ''
+    const isGuide = role === 'guide'
+    this.setData({ role })
+    this.setData({
+      quickNavs: [
+        { id: 1, name: '找医院', icon: '/images/icons/hospital.png', url: '/pages/hospital/hospital', bg: 'nav-bg-hospital' },
+        isGuide
+          ? { id: 2, name: '我的患者', icon: '/images/icons/patient.png', url: '/pages/order/list/list', bg: 'nav-bg-guide' }
+          : { id: 2, name: '找导诊', icon: '/images/icons/guide.png', url: '/pages/guide/list/list', bg: 'nav-bg-guide' },
+        { id: 3, name: '我的订单', icon: '/images/icons/order.png', url: '/pages/order/list/list', bg: 'nav-bg-order' },
+        { id: 4, name: '个人中心', icon: '/images/icons/mine.png', url: '/pages/profile/profile', bg: 'nav-bg-mine' },
+      ]
+    })
+  },
+
+  fetchHomeData() {
     const price = CONFIG.PRICING.BASE_PRICE
     api.getHospitalList({ size: 50 }).then(res => {
       if (res.code === 200 && res.data) {
@@ -26,12 +55,21 @@ Page({
       }
     }).catch(() => {})
 
-    api.getGuideList({ size: 50 }).then(res => {
-      if (res.code === 200 && res.data) {
-        const guides = (res.data.rows || []).map(g => ({ ...g, price }))
-        this.setData({ guides })
-      }
-    }).catch(() => {})
+    // 导诊员看自己的患者，患者看推荐导诊员
+    if (app.globalData.role === 'guide') {
+      api.getMyPatients().then(res => {
+        if (res.code === 200 && res.data) {
+          this.setData({ patients: res.data.rows || [] })
+        }
+      }).catch(() => {})
+    } else {
+      api.getGuideList({ size: 50 }).then(res => {
+        if (res.code === 200 && res.data) {
+          const guides = (res.data.rows || []).map(g => ({ ...g, price }))
+          this.setData({ guides })
+        }
+      }).catch(() => {})
+    }
   },
 
   onSearch() {
@@ -40,7 +78,11 @@ Page({
 
   onNavTap(e) {
     const url = e.currentTarget.dataset.url
-    wx.navigateTo({ url })
+    if (url.indexOf('/pages/order/list/list') !== -1 || url.indexOf('/pages/profile/profile') !== -1) {
+      wx.switchTab({ url })
+    } else {
+      wx.navigateTo({ url })
+    }
   },
 
   onMoreHospital() {
@@ -48,7 +90,11 @@ Page({
   },
 
   onMoreGuide() {
-    wx.navigateTo({ url: '/pages/guide/list/list' })
+    if (app.globalData.role === 'guide') {
+      wx.switchTab({ url: '/pages/order/list/list' })
+    } else {
+      wx.navigateTo({ url: '/pages/guide/list/list' })
+    }
   },
 
   onHospitalTap(e) {
@@ -59,5 +105,17 @@ Page({
   onGuideTap(e) {
     const id = e.currentTarget.dataset.id
     wx.navigateTo({ url: `/pages/guide/detail/detail?guideId=${id}` })
+  },
+
+  onPatientTap(e) {
+    const id = e.currentTarget.dataset.id
+    const p = this.data.patients.find(x => x.id === id)
+    if (!p) return
+    wx.showModal({
+      title: '患者信息',
+      content: `姓名：${p.name}\n电话：${p.phone}\n地址：${p.address || '未填写'}\n订单数：${p.order_count} 单`,
+      showCancel: false,
+      confirmText: '知道了'
+    })
   },
 })

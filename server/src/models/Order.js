@@ -16,12 +16,14 @@ const Order = {
       `SELECT o.*, p.name AS patient_name, p.phone AS patient_phone,
               g.name AS guide_name, g.phone AS guide_phone,
               h.name AS hospital_name, h.address AS hospital_address,
-              d.name AS department_name
+              d.name AS department_name,
+              c.name AS coupon_name
        FROM orders o
        LEFT JOIN patients p ON o.patient_id = p.id
        LEFT JOIN guides g ON o.guide_id = g.id
        LEFT JOIN hospitals h ON o.hospital_id = h.id
        LEFT JOIN departments d ON o.department_id = d.id
+       LEFT JOIN coupons c ON o.coupon_id = c.id
        WHERE o.id = ?`,
       [id]
     );
@@ -56,7 +58,7 @@ const Order = {
 
   async findByGuide(guideId, { status, page = 1, pageSize = 10 } = {}) {
     const offset = (page - 1) * pageSize;
-    let where = 'WHERE o.guide_id = ?';
+    let where = 'WHERE (o.guide_id = ? OR (o.status = 0 AND o.guide_id IS NULL))';
     const params = [guideId];
     if (status !== undefined) {
       where += ' AND o.status = ?';
@@ -112,6 +114,15 @@ const Order = {
       values
     );
     return result;
+  },
+
+  // 导诊员接单：待导诊(0) → 进行中(2)，并原子关联接单导诊员（防止并发重复接单）
+  async startByGuide(orderId, guideId) {
+    const [result] = await db.execute(
+      'UPDATE orders SET status = 2, guide_id = ? WHERE id = ? AND status = 0',
+      [guideId, orderId]
+    );
+    return result.affectedRows;
   },
 
   async findByOrderNo(orderNo) {

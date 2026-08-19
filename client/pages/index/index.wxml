@@ -34,7 +34,7 @@
 
   <view class="section">
     <view class="section-header">
-      <text class="section-title">{{role === 'guide' ? '待服务订单' : '推荐导诊员'}}</text>
+      <text class="section-title">{{role === 'guide' ? '待导诊订单' : '推荐导诊员'}}</text>
       <text class="section-more" bindtap="onMoreGuide">{{role === 'guide' ? '查看订单 >' : '查看更多 >'}}</text>
     </view>
     <scroll-view class="guide-scroll" scroll-x="{{true}}" show-scrollbar="{{false}}">

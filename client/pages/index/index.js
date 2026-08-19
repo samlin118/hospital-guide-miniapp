@@ -55,11 +55,11 @@ Page({
       }
     }).catch(() => {})
 
-    // 导诊员看患者的导诊订单（只显示待服务的，统一显示为「待导诊」），患者看推荐导诊员
+    // 导诊员看患者的导诊订单（待导诊 = 待支付0 的订单，支付后变已完成不再显示），患者看推荐导诊员
     if (app.globalData.role === 'guide') {
       api.getGuideOrders({ size: 50 }).then(res => {
         if (res.code === 200 && res.data) {
-          const rows = (res.data.rows || []).filter(o => o.status !== 3 && o.status !== 4)
+          const rows = (res.data.rows || []).filter(o => o.status === 0)
           const orders = rows.map(o => ({
             ...o,
             statusText: '待导诊',

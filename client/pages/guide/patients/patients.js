@@ -24,8 +24,8 @@ Page({
     const { hospitalId, departmentId } = this.data
     api.getDeptOrders({ hospitalId, departmentId, size: 100 }).then(res => {
       if (res.code === 200 && res.data) {
-        // 只显示待服务的订单（排除已完成/已取消），状态统一显示「待导诊」
-        const rows = (res.data.rows || []).filter(o => o.status !== 3 && o.status !== 4)
+        // 只显示「待导诊」状态的订单（待支付0，支付后变已完成不再显示）
+        const rows = (res.data.rows || []).filter(o => o.status === 0)
         const orders = rows.map(o => ({
           ...o,
           statusText: '待导诊',

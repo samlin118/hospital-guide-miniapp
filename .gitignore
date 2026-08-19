@@ -32,6 +32,7 @@ miniprogram_npm/
 
 # 临时文件
 *.tmp
+tmp-*.js
 
 # 上传文件（运行时数据）
 server/uploads/

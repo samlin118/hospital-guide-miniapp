@@ -1,7 +1,7 @@
 <view class="patients-page">
   <home-nav />
   <view class="page-header">
-    <text class="page-title">{{departmentName || '科室'}} · 患者导诊订单</text>
+    <text class="page-title">{{departmentName || '科室'}} · 待导诊订单</text>
     <text class="page-sub">{{hospitalName}}</text>
   </view>
   <view class="order-list">

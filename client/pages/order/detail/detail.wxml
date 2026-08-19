@@ -7,9 +7,9 @@
 
   <view class="section">
     <view class="info-row"><text class="label">订单编号</text><text class="value">{{order.order_no}}</text></view>
-    <view class="info-row"><text class="label">导诊员</text><text class="value">{{order.guide_name}}</text></view>
+    <view class="info-row"><text class="label">导诊员</text><text class="value">{{order.guide_name || '待分配'}}</text></view>
     <view class="info-row"><text class="label">服务医院</text><text class="value">{{order.hospital_name}}</text></view>
-    <view class="info-row"><text class="label">服务科室</text><text class="value">{{order.dept_name}}</text></view>
+    <view class="info-row"><text class="label">服务科室</text><text class="value">{{order.department_name}}</text></view>
     <view class="info-row"><text class="label">服务日期</text><text class="value">{{order.date}}</text></view>
     <view class="info-row"><text class="label">开始时间</text><text class="value">{{order.start_time}}</text></view>
     <view class="info-row"><text class="label">服务时长</text><text class="value">{{order.duration}}小时</text></view>
@@ -17,13 +17,27 @@
 
   <view class="section">
     <view class="info-row"><text class="label">基础费用</text><text class="value">¥{{order.base_amount}}</text></view>
-    <view class="info-row" wx:if="{{order.discount_amount > 0}}"><text class="label">优惠减免</text><text class="value discount">-¥{{order.discount_amount}}</text></view>
-    <view class="info-row total"><text class="label">实付金额</text><text class="value total-price">¥{{order.final_amount}}</text></view>
-    <view class="info-row"><text class="label">支付方式</text><text class="value">{{order.payment_method === 'wechat' ? '微信支付' : '支付宝'}}</text></view>
+    <!-- 待导诊订单：显示打折明细 + 订单金额(收费-折扣)，不显示实付金额/支付方式 -->
+    <block wx:if="{{order.status === 0}}">
+      <view class="info-row"><text class="label">打折明细</text><text class="value discount">{{order.discount_amount > 0 ? (order.coupon_name ? order.coupon_name + ' 减' + order.discount_amount + '元' : '优惠 ' + order.discount_amount + '元') : '无折扣'}}</text></view>
+      <view class="info-row total"><text class="label">订单金额</text><text class="value total-price">¥{{order.orderAmount}}</text></view>
+    </block>
+    <!-- 其它状态：实付金额 + 支付方式 -->
+    <block wx:else>
+      <view class="info-row" wx:if="{{order.discount_amount > 0}}"><text class="label">优惠减免</text><text class="value discount">-¥{{order.discount_amount}}</text></view>
+      <view class="info-row total"><text class="label">实付金额</text><text class="value total-price">¥{{order.final_amount}}</text></view>
+      <view class="info-row"><text class="label">支付方式</text><text class="value">{{order.payment_method === 'wechat' ? '微信支付' : order.payment_method === 'alipay' ? '支付宝' : '未支付'}}</text></view>
+    </block>
   </view>
 
-  <view class="bottom-bar" wx:if="{{order.status === 0}}">
-    <button class="cancel-btn" bindtap="onCancel">取消订单</button>
-    <button class="pay-btn" bindtap="onPay">去支付</button>
+  <!-- 导诊员：待导诊订单 → 接订单 + 后退 -->
+  <view class="bottom-bar" wx:if="{{isGuide && order.status === 0}}">
+    <button class="cancel-btn" bindtap="onBack">后退</button>
+    <button class="pay-btn" bindtap="onAcceptOrder">接订单</button>
+  </view>
+  <!-- 患者：待导诊 → 取消订单；待支付 → 去支付 -->
+  <view class="bottom-bar" wx:if="{{!isGuide && (order.status === 0 || order.status === 1)}}">
+    <button class="cancel-btn" wx:if="{{order.status === 0}}" bindtap="onCancel">取消订单</button>
+    <button class="pay-btn" wx:if="{{order.status === 1}}" bindtap="onPay">去支付</button>
   </view>
 </view>

@@ -9,6 +9,7 @@ router.get('/guide', authMiddleware(), orderController.listByGuide);
 router.get('/detail/:orderId', authMiddleware(), orderController.getDetail);
 router.get('/by-hospital-department', authMiddleware(), orderController.listByHospitalDepartment);
 router.post('/cancel', authMiddleware(), orderController.cancel);
+router.post('/start', authMiddleware(), orderController.startService);
 router.post('/complete', authMiddleware(), orderController.confirmComplete);
 router.get('/admin/list', authMiddleware(), adminMiddleware, orderController.listAll);
 

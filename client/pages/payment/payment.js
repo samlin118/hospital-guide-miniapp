@@ -35,6 +35,9 @@ Page({
       util.hideLoading();
       if (success) {
         util.showSuccess('支付成功');
+        // 通知后端：订单完成支付 → 已完成(3)
+        const { orderNo } = this.data;
+        api.notifyPayment({ order_no: orderNo, method, trade_no: '', status: 'success' }).catch(() => {});
         wx.redirectTo({ url: `/pages/order/detail/detail?orderId=${orderId}` });
       }
     }).catch(err => {

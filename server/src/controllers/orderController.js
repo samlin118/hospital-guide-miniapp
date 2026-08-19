@@ -9,10 +9,12 @@ exports.create = async (req, res) => {
     const { guide_id, hospital_id, department_id, date, start_time, duration, coupon_id } = req.body;
     const patient_id = req.user.id;
     const order_no = 'HG' + Date.now() + Math.floor(Math.random() * 9000 + 1000);
-    // 使用该导诊员的每小时报价计算费用
-    const guide = await Guide.findById(guide_id);
-    if (!guide) return fail(res, 'Guide not found');
-    const price = Number(guide.price) || 50;
+    // 用所选导诊员的报价估算费用（可选）；待导诊订单不预分配导诊员，导诊员接单时才关联
+    let price = 50;
+    if (guide_id) {
+      const guide = await Guide.findById(guide_id);
+      if (guide) price = Number(guide.price) || 50;
+    }
     const baseAmount = calculateAmount(duration, price);
     let finalAmount = baseAmount;
     let discountAmount = 0;
@@ -25,7 +27,7 @@ exports.create = async (req, res) => {
       }
     }
     const order = await Order.create({
-      order_no, patient_id, guide_id, hospital_id, department_id,
+      order_no, patient_id, guide_id: null, hospital_id, department_id,
       date, start_time, duration, base_amount: baseAmount, coupon_id, discount_amount: discountAmount,
       final_amount: finalAmount, payment_method: null
     });
@@ -60,7 +62,8 @@ exports.getDetail = async (req, res) => {
     const { orderId } = req.params;
     const order = await Order.findById(orderId);
     if (!order) return fail(res, 'Order not found');
-    if (order.patient_id !== req.user.id && order.guide_id !== req.user.id && req.user.type !== 'admin') {
+    // 待导诊(0)订单未分配导诊员，任何导诊员可查看以便接单
+    if (order.patient_id !== req.user.id && order.guide_id !== req.user.id && req.user.type !== 'admin' && !(req.user.type === 'guide' && order.status === 0)) {
       return fail(res, 'Unauthorized');
     }
     success(res, order);
@@ -106,17 +109,35 @@ exports.listByHospitalDepartment = async (req, res) => {
   }
 };
 
+// 导诊员接单：待导诊(0) → 进行中(2)，并关联接单导诊员（原子更新防并发抢单）
+exports.startService = async (req, res) => {
+  try {
+    const orderId = req.params.orderId || req.body.order_id || req.body.orderId;
+    if (!orderId) return fail(res, 'Order id required');
+    if (req.user.type !== 'guide' && req.user.type !== 'admin') return fail(res, 'Unauthorized');
+    const order = await Order.findById(orderId);
+    if (!order) return fail(res, 'Order not found');
+    if (order.status !== 0) return fail(res, '订单只能在待导诊状态开始服务');
+    const affected = await Order.startByGuide(orderId, req.user.id);
+    if (!affected) return fail(res, '订单已被其他导诊员接单');
+    success(res, null, '已开始服务');
+  } catch (err) {
+    fail(res, err.message);
+  }
+};
+
+// 导诊员完成导诊：进行中(2) → 待支付(1)（等待患者支付）
 exports.confirmComplete = async (req, res) => {
   try {
     const orderId = req.params.orderId || req.body.order_id || req.body.orderId;
     if (!orderId) return fail(res, 'Order id required');
-    if (req.user.type !== 'guide' && req.user.type !== 'admin') {
-      return fail(res, 'Unauthorized');
-    }
+    if (req.user.type !== 'guide' && req.user.type !== 'admin') return fail(res, 'Unauthorized');
     const order = await Order.findById(orderId);
     if (!order) return fail(res, 'Order not found');
-    await Order.update(orderId, { status: 3 });
-    success(res, null, 'Order completed');
+    if (order.guide_id !== req.user.id && req.user.type !== 'admin') return fail(res, 'Unauthorized');
+    if (order.status !== 2) return fail(res, '订单只能在进行中状态完成导诊');
+    await Order.update(orderId, { status: 1 });
+    success(res, null, '已完成导诊，等待患者支付');
   } catch (err) {
     fail(res, err.message);
   }

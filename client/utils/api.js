@@ -73,10 +73,12 @@ module.exports = {
   getGuideOrders: (params) => request('/orders/guide?' + objToParams(params)),
   getOrderDetail: (id) => request('/orders/detail/' + id),
   cancelOrder: (data) => request('/orders/cancel', 'POST', data),
+  startOrder: (data) => request('/orders/start', 'POST', data),
   completeOrder: (data) => request('/orders/complete', 'POST', data),
 
   // 支付
   createPayment: (data) => request('/payments/create', 'POST', data),
+  notifyPayment: (data) => request('/payments/notify', 'POST', data),
   queryPayment: (params) => request('/payments/query?' + objToParams(params)),
 
   // 评价

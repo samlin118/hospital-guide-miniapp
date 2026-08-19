@@ -123,11 +123,14 @@ Page({
     api.createOrder(data).then(res => {
       util.hideLoading();
       if (res.code === 200 && res.data) {
-        util.showSuccess('订单创建成功');
-        const orderId = res.data.id || res.data.order_id;
-        wx.navigateTo({
-          url: `/pages/payment/payment?orderId=${orderId}&amount=${finalAmount}&orderNo=${res.data.order_no || ''}`
-        });
+        util.showSuccess('下单成功，等待导诊员接单');
+        const orderId = res.data.id || res.data.insertId || res.data.order_id;
+        // 先服务后付款：下单后进入订单详情（待导诊），导诊员完成导诊后才去支付
+        setTimeout(() => {
+          wx.navigateTo({
+            url: `/pages/order/detail/detail?orderId=${orderId}`
+          });
+        }, 1000);
       } else {
         util.showError(res.message || '创建订单失败');
       }

@@ -55,7 +55,7 @@ CREATE TABLE orders (
   id INT PRIMARY KEY AUTO_INCREMENT,
   order_no VARCHAR(50) NOT NULL UNIQUE,
   patient_id INT NOT NULL,
-  guide_id INT NOT NULL,
+  guide_id INT NULL COMMENT '待导诊订单为空，导诊员接单后才关联',
   hospital_id INT NOT NULL,
   department_id INT,
   date DATE NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE orders (
   coupon_id INT,
   discount_amount DECIMAL(10,2) DEFAULT 0.00,
   final_amount DECIMAL(10,2) NOT NULL,
-  status TINYINT DEFAULT 0 COMMENT '0:待支付 1:已支付 2:进行中 3:已完成 4:已取消',
+  status TINYINT DEFAULT 0 COMMENT '0:待导诊 1:待支付(已完成导诊待患者支付) 2:进行中 3:已完成(已支付) 4:已取消',
   payment_method VARCHAR(20) COMMENT 'wechat/alipay',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

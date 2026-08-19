@@ -9,7 +9,8 @@ exports.createPayment = async (req, res) => {
     const order = await Order.findById(order_id);
     if (!order) return fail(res, 'Order not found');
     if (order.patient_id !== req.user.id) return fail(res, 'Unauthorized');
-    if (order.status !== 0) return fail(res, 'Order already paid');
+    // 患者只能在「待支付」(1，导诊员已完成导诊) 状态下支付
+    if (order.status !== 1) return fail(res, '当前订单不可支付');
 
     let payResult;
     if (method === 'wechat') {
@@ -37,7 +38,8 @@ exports.notify = async (req, res) => {
   try {
     const { order_no, method, trade_no, status } = req.body;
     if (status === 'success') {
-      await Order.updateByOrderNo(order_no, { status: 1 });
+      // 支付成功 → 订单直接标记为「已完成」并记录支付方式
+      await Order.updateByOrderNo(order_no, { status: 3, payment_method: method });
       await Payment.updateByOrderNo(order_no, { status: 1, trade_no });
     }
     success(res, null, 'Payment notified');

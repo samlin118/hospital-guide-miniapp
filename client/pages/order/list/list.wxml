@@ -16,8 +16,12 @@
       <view class="order-footer">
         <text class="order-amount">¥{{item.final_amount}}</text>
         <view class="order-actions">
-          <button class="action-btn" wx:if="{{item.status === 0}}" bindtap="onPay" data-id="{{item.id}}" catchtap>去支付</button>
-          <button class="action-btn" wx:if="{{item.status === 0}}" bindtap="onCancel" data-id="{{item.id}}" catchtap>取消</button>
+          <!-- 导诊员：接单 / 完成导诊 -->
+          <button class="action-btn" wx:if="{{isGuide && item.status === 0}}" bindtap="onStart" data-id="{{item.id}}" catchtap>接单</button>
+          <button class="action-btn" wx:if="{{isGuide && item.status === 2}}" bindtap="onComplete" data-id="{{item.id}}" catchtap>完成导诊</button>
+          <!-- 患者：待支付(1)时支付、待导诊(0)时可取消 -->
+          <button class="action-btn" wx:if="{{!isGuide && item.status === 1}}" bindtap="onPay" data-id="{{item.id}}" catchtap>去支付</button>
+          <button class="action-btn" wx:if="{{!isGuide && item.status === 0}}" bindtap="onCancel" data-id="{{item.id}}" catchtap>取消</button>
           <button class="action-btn" wx:if="{{item.status === 3 && !item.isRated}}" bindtap="onRate" data-id="{{item.id}}" catchtap>去评价</button>
         </view>
       </view>

@@ -7,7 +7,16 @@ Page({
     phone: '',
     password: '',
     adminMode: false,
-    adminName: ''
+    adminName: '',
+    showPassword: false,
+    showAdminPassword: false
+  },
+
+  // 已登录用户（重新打开小程序）自动进入首页，无需重复登录
+  onShow() {
+    if (app.isLoggedIn()) {
+      wx.switchTab({ url: '/pages/index/index' })
+    }
   },
 
   selectRole(e) {
@@ -20,6 +29,14 @@ Page({
 
   onPasswordInput(e) {
     this.setData({ password: e.detail.value })
+  },
+
+  onTogglePassword() {
+    this.setData({ showPassword: !this.data.showPassword })
+  },
+
+  onToggleAdminPassword() {
+    this.setData({ showAdminPassword: !this.data.showAdminPassword })
   },
 
   onAdminNameInput(e) {

@@ -1,4 +1,7 @@
 {
   "compileType": "miniprogram",
-  "simulatorPluginLibVersion": {}
+  "simulatorPluginLibVersion": {},
+  "setting": {
+    "urlCheck": false
+  }
 }

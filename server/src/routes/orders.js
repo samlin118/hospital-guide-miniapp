@@ -7,6 +7,7 @@ router.post('/create', authMiddleware(), orderController.create);
 router.get('/my', authMiddleware(), orderController.listByPatient);
 router.get('/guide', authMiddleware(), orderController.listByGuide);
 router.get('/detail/:orderId', authMiddleware(), orderController.getDetail);
+router.get('/by-hospital-department', authMiddleware(), orderController.listByHospitalDepartment);
 router.post('/cancel', authMiddleware(), orderController.cancel);
 router.post('/complete', authMiddleware(), orderController.confirmComplete);
 router.get('/admin/list', authMiddleware(), adminMiddleware, orderController.listAll);

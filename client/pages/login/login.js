@@ -13,9 +13,13 @@ Page({
   },
 
   // 已登录用户（重新打开小程序）自动进入首页，无需重复登录
+  // 只在首次展示时、延迟执行一次，避免在启动路由期间立即 switchTab 导致 appLaunch timeout
   onShow() {
-    if (app.isLoggedIn()) {
-      wx.switchTab({ url: '/pages/index/index' })
+    if (app.isLoggedIn() && !this._skipDone) {
+      this._skipDone = true
+      setTimeout(() => {
+        wx.switchTab({ url: '/pages/index/index' })
+      }, 500)
     }
   },
 

@@ -64,7 +64,7 @@ const Order = {
     }
     const countParams = [...params];
     const [rows] = await db.execute(
-      `SELECT o.*, p.name AS patient_name, p.phone AS patient_phone,
+      `SELECT o.*, p.name AS patient_name, p.phone AS patient_phone, p.avatar AS patient_avatar,
               h.name AS hospital_name, d.name AS department_name
        FROM orders o
        LEFT JOIN patients p ON o.patient_id = p.id
@@ -79,6 +79,21 @@ const Order = {
       countParams
     );
     return { rows, total: countResult[0].total, page, pageSize };
+  },
+
+  // 某医院+科室下的患者导诊订单（含患者信息）
+  async findByHospitalDepartment(hospitalId, departmentId) {
+    const [rows] = await db.execute(
+      `SELECT o.*, p.name AS patient_name, p.phone AS patient_phone, p.avatar AS patient_avatar,
+              g.name AS guide_name
+       FROM orders o
+       LEFT JOIN patients p ON o.patient_id = p.id
+       LEFT JOIN guides g ON o.guide_id = g.id
+       WHERE o.hospital_id = ? AND o.department_id = ?
+       ORDER BY o.created_at DESC`,
+      [hospitalId, departmentId]
+    );
+    return rows;
   },
 
   async update(id, data) {

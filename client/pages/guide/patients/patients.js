@@ -7,7 +7,7 @@ Page({
     departmentId: '',
     hospitalName: '',
     departmentName: '',
-    patients: []
+    orders: []
   },
 
   onLoad(options) {
@@ -17,34 +17,30 @@ Page({
       hospitalName: decodeURIComponent(options.hospitalName || ''),
       departmentName: decodeURIComponent(options.departmentName || '')
     })
-    this.fetchPatients()
+    this.fetchOrders()
   },
 
-  fetchPatients() {
+  fetchOrders() {
     const { hospitalId, departmentId } = this.data
-    api.getDeptPatients({ hospitalId, departmentId, size: 100 }).then(res => {
+    api.getDeptOrders({ hospitalId, departmentId, size: 100 }).then(res => {
       if (res.code === 200 && res.data) {
-        const rows = res.data.rows || []
-        const patients = rows.map(p => ({
-          ...p,
-          timeText: p.last_order_at ? util.formatTime(p.last_order_at) : ''
+        // 只显示待服务的订单（排除已完成/已取消），状态统一显示「待导诊」
+        const rows = (res.data.rows || []).filter(o => o.status !== 3 && o.status !== 4)
+        const orders = rows.map(o => ({
+          ...o,
+          statusText: '待导诊',
+          statusColor: '#FF976A',
+          timeText: o.created_at ? util.formatTime(o.created_at) : ''
         }))
-        this.setData({ patients })
+        this.setData({ orders })
       }
     }).catch(() => {
       wx.showToast({ title: '加载失败', icon: 'none' })
     })
   },
 
-  onPatientTap(e) {
+  onOrderTap(e) {
     const id = e.currentTarget.dataset.id
-    const p = this.data.patients.find(x => x.id === id)
-    if (!p) return
-    wx.showModal({
-      title: '患者信息',
-      content: `姓名：${p.name}\n电话：${p.phone}\n地址：${p.address || '未填写'}\n订单数：${p.order_count} 单`,
-      showCancel: false,
-      confirmText: '知道了'
-    })
+    wx.navigateTo({ url: `/pages/order/detail/detail?orderId=${id}` })
   }
 })

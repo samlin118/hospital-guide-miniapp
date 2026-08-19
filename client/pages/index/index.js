@@ -13,7 +13,7 @@ Page({
     role: '',
     hospitals: [],
     guides: [],
-    patients: [],
+    patientOrders: [],
   },
 
   onLoad() {
@@ -55,11 +55,17 @@ Page({
       }
     }).catch(() => {})
 
-    // 导诊员看自己的患者，患者看推荐导诊员
+    // 导诊员看患者的导诊订单（只显示待服务的，统一显示为「待导诊」），患者看推荐导诊员
     if (app.globalData.role === 'guide') {
-      api.getMyPatients().then(res => {
+      api.getGuideOrders({ size: 50 }).then(res => {
         if (res.code === 200 && res.data) {
-          this.setData({ patients: res.data.rows || [] })
+          const rows = (res.data.rows || []).filter(o => o.status !== 3 && o.status !== 4)
+          const orders = rows.map(o => ({
+            ...o,
+            statusText: '待导诊',
+            statusColor: '#FF976A'
+          }))
+          this.setData({ patientOrders: orders })
         }
       }).catch(() => {})
     } else {
@@ -109,13 +115,6 @@ Page({
 
   onPatientTap(e) {
     const id = e.currentTarget.dataset.id
-    const p = this.data.patients.find(x => x.id === id)
-    if (!p) return
-    wx.showModal({
-      title: '患者信息',
-      content: `姓名：${p.name}\n电话：${p.phone}\n地址：${p.address || '未填写'}\n订单数：${p.order_count} 单`,
-      showCancel: false,
-      confirmText: '知道了'
-    })
+    wx.navigateTo({ url: `/pages/order/detail/detail?orderId=${id}` })
   },
 })

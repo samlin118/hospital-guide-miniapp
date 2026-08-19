@@ -1,22 +1,25 @@
 <view class="patients-page">
   <home-nav />
   <view class="page-header">
-    <text class="page-title">{{departmentName || '科室'}} · 需要服务的患者</text>
+    <text class="page-title">{{departmentName || '科室'}} · 患者导诊订单</text>
     <text class="page-sub">{{hospitalName}}</text>
   </view>
-  <view class="patient-list">
-    <view class="patient-card" wx:for="{{patients}}" wx:key="id" bindtap="onPatientTap" data-id="{{item.id}}">
-      <image class="patient-avatar" src="{{item.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
-      <view class="patient-info">
-        <text class="patient-name">{{item.name}}</text>
-        <text class="patient-phone">{{item.phone}}</text>
-        <text class="patient-addr">{{item.address || '地址未填写'}}</text>
+  <view class="order-list">
+    <view class="order-card" wx:for="{{orders}}" wx:key="id" bindtap="onOrderTap" data-id="{{item.id}}">
+      <view class="order-top">
+        <image class="patient-avatar" src="{{item.patient_avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+        <view class="order-patient">
+          <text class="patient-name">{{item.patient_name || '未知患者'}}</text>
+          <text class="patient-phone">{{item.patient_phone || ''}}</text>
+        </view>
+        <text class="order-status" style="color: {{item.statusColor}}">{{item.statusText}}</text>
       </view>
-      <view class="patient-side">
-        <text class="patient-count">{{item.order_count}} 单</text>
-        <text class="patient-time" wx:if="{{item.timeText}}">{{item.timeText}}</text>
+      <view class="order-meta">
+        <text class="order-line">服务时间：{{item.date}} {{item.start_time}}（{{item.duration}}小时）</text>
+        <text class="order-line">金额：¥{{item.final_amount}}</text>
+        <text class="order-line" wx:if="{{item.guide_name}}">导诊员：{{item.guide_name}}</text>
       </view>
     </view>
-    <empty-state wx:if="{{patients.length === 0}}" text="该科室暂无需要服务的患者" />
+    <empty-state wx:if="{{orders.length === 0}}" text="该科室暂无患者导诊订单" />
   </view>
 </view>

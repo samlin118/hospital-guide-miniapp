@@ -93,6 +93,19 @@ exports.listAll = async (req, res) => {
   }
 };
 
+// 导诊员查看某医院+科室下的患者导诊订单
+exports.listByHospitalDepartment = async (req, res) => {
+  try {
+    if (req.user.type !== 'guide') return fail(res, 'Unauthorized');
+    const { hospitalId, departmentId } = req.query;
+    if (!hospitalId || !departmentId) return fail(res, 'hospitalId and departmentId required');
+    const rows = await Order.findByHospitalDepartment(hospitalId, departmentId);
+    success(res, { rows, total: rows.length });
+  } catch (err) {
+    fail(res, err.message);
+  }
+};
+
 exports.confirmComplete = async (req, res) => {
   try {
     const orderId = req.params.orderId || req.body.order_id || req.body.orderId;

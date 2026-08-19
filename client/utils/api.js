@@ -49,6 +49,7 @@ module.exports = {
   getPatientProfile: () => request('/patients/profile'),
   getMyPatients: () => request('/patients/by-guide'),
   getDeptPatients: (params) => request('/patients/by-hospital-department?' + objToParams(params)),
+  getDeptOrders: (params) => request('/orders/by-hospital-department?' + objToParams(params)),
 
   // 导诊员
   guideRegister: (data) => request('/guides/register', 'POST', data),

@@ -34,17 +34,17 @@
 
   <view class="section">
     <view class="section-header">
-      <text class="section-title">{{role === 'guide' ? '我的患者' : '推荐导诊员'}}</text>
+      <text class="section-title">{{role === 'guide' ? '待服务订单' : '推荐导诊员'}}</text>
       <text class="section-more" bindtap="onMoreGuide">{{role === 'guide' ? '查看订单 >' : '查看更多 >'}}</text>
     </view>
     <scroll-view class="guide-scroll" scroll-x="{{true}}" show-scrollbar="{{false}}">
       <view class="guide-scroll-inner">
         <block wx:if="{{role === 'guide'}}">
-          <view class="guide-item" wx:for="{{patients}}" wx:key="id" bindtap="onPatientTap" data-id="{{item.id}}">
-            <image class="guide-avatar" src="{{item.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
-            <text class="guide-name">{{item.name}}</text>
-            <text class="guide-score">{{item.phone}}</text>
-            <text class="guide-price">{{item.order_count}}单</text>
+          <view class="guide-item" wx:for="{{patientOrders}}" wx:key="id" bindtap="onPatientTap" data-id="{{item.id}}">
+            <image class="guide-avatar" src="{{item.patient_avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+            <text class="guide-name">{{item.patient_name}}</text>
+            <text class="guide-score">{{item.date}} {{item.start_time}}</text>
+            <text class="guide-price" style="color: {{item.statusColor}}">{{item.final_amount}}元 · {{item.statusText}}</text>
           </view>
         </block>
         <block wx:else>

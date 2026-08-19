@@ -48,6 +48,7 @@ module.exports = {
   updatePatientProfile: (data) => request('/patients/profile', 'POST', data),
   getPatientProfile: () => request('/patients/profile'),
   getMyPatients: () => request('/patients/by-guide'),
+  getDeptPatients: (params) => request('/patients/by-hospital-department?' + objToParams(params)),
 
   // 导诊员
   guideRegister: (data) => request('/guides/register', 'POST', data),
@@ -99,6 +100,7 @@ module.exports = {
   adminGetOrders: (params) => request('/orders/admin/list?' + objToParams(params)),
   adminGetPatients: (params) => request('/patients/list?' + objToParams(params)),
   adminGetGuides: (params) => request('/guides/admin/list?' + objToParams(params)),
+  adminUpdateGuide: (data) => request('/guides/admin/update', 'POST', data),
   adminGetMessages: (params) => request('/messages/admin/list?' + objToParams(params)),
   adminReplyMessage: (messageId, data) => request('/messages/reply/' + messageId, 'POST', data),
   adminCreateCoupon: (data) => request('/coupons/create', 'POST', data),

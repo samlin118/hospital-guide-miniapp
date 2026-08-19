@@ -8,6 +8,7 @@
     "pages/department/department",
     "pages/guide/list/list",
     "pages/guide/detail/detail",
+    "pages/guide/patients/patients",
     "pages/order/confirm/confirm",
     "pages/order/list/list",
     "pages/order/detail/detail",
@@ -20,6 +21,7 @@
     "pages/admin/hospital-reg/hospital-reg",
     "pages/admin/coupon-mgmt/coupon-mgmt",
     "pages/admin/guide-assign/guide-assign",
+    "pages/admin/guide-price/guide-price",
     "pages/admin/message-mgmt/message-mgmt"
   ],
   "window": {

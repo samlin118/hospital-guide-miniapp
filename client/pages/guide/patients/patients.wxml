@@ -1,0 +1,22 @@
+<view class="patients-page">
+  <home-nav />
+  <view class="page-header">
+    <text class="page-title">{{departmentName || '科室'}} · 需要服务的患者</text>
+    <text class="page-sub">{{hospitalName}}</text>
+  </view>
+  <view class="patient-list">
+    <view class="patient-card" wx:for="{{patients}}" wx:key="id" bindtap="onPatientTap" data-id="{{item.id}}">
+      <image class="patient-avatar" src="{{item.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+      <view class="patient-info">
+        <text class="patient-name">{{item.name}}</text>
+        <text class="patient-phone">{{item.phone}}</text>
+        <text class="patient-addr">{{item.address || '地址未填写'}}</text>
+      </view>
+      <view class="patient-side">
+        <text class="patient-count">{{item.order_count}} 单</text>
+        <text class="patient-time" wx:if="{{item.timeText}}">{{item.timeText}}</text>
+      </view>
+    </view>
+    <empty-state wx:if="{{patients.length === 0}}" text="该科室暂无需要服务的患者" />
+  </view>
+</view>

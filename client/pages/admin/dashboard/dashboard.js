@@ -23,6 +23,10 @@ Page({
     wx.navigateTo({ url: '/pages/admin/guide-assign/guide-assign' });
   },
 
+  onGuidePrice() {
+    wx.navigateTo({ url: '/pages/admin/guide-price/guide-price' });
+  },
+
   onCouponMgmt() {
     wx.navigateTo({ url: '/pages/admin/coupon-mgmt/coupon-mgmt' });
   },

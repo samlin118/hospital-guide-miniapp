@@ -13,6 +13,7 @@ Page({
     date: '',
     startTime: '',
     duration: 2,
+    guidePrice: 50,
     baseAmount: 50,
     discountAmount: 0,
     finalAmount: 50,
@@ -28,17 +29,18 @@ Page({
     const hospitalName = options.hospitalName || '';
     const deptId = options.deptId || '';
     const deptName = options.deptName || '';
+    const guidePrice = parseFloat(options.price) || 50;
 
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const date = util.formatDate(tomorrow);
     const startTime = '09:00';
 
-    const baseAmount = calculateAmount(this.data.duration);
+    const baseAmount = calculateAmount(this.data.duration, guidePrice);
     const finalAmount = baseAmount;
 
     this.setData({
-      guideId, guideName, hospitalId, hospitalName, deptId, deptName,
+      guideId, guideName, hospitalId, hospitalName, deptId, deptName, guidePrice,
       date, startTime, baseAmount, finalAmount
     });
 
@@ -87,7 +89,7 @@ Page({
   },
 
   recalculatePrice() {
-    const baseAmount = calculateAmount(this.data.duration);
+    const baseAmount = calculateAmount(this.data.duration, this.data.guidePrice);
     const selectedCoupon = this.data.selectedCoupon;
     let discountAmount = 0;
     if (selectedCoupon) {

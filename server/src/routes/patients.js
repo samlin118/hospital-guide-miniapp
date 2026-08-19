@@ -7,6 +7,7 @@ router.post('/register', patientController.register);
 router.post('/profile', authMiddleware(), patientController.updateProfile);
 router.get('/profile', authMiddleware(), patientController.getProfile);
 router.get('/by-guide', authMiddleware(), patientController.listByGuide);
+router.get('/by-hospital-department', authMiddleware(), patientController.listByHospitalDepartment);
 router.get('/list', authMiddleware(), adminMiddleware, patientController.list);
 
 module.exports = router;

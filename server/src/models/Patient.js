@@ -40,6 +40,22 @@ const Patient = {
     return rows;
   },
 
+  // 某医院+科室下需要服务的患者（在该院该科有订单的患者）
+  async findByHospitalDepartment(hospitalId, departmentId) {
+    const [rows] = await db.execute(
+      `SELECT p.id, p.name, p.phone, p.address, p.avatar,
+              COUNT(o.id) AS order_count,
+              MAX(o.created_at) AS last_order_at
+       FROM patients p
+       JOIN orders o ON o.patient_id = p.id
+       WHERE o.hospital_id = ? AND o.department_id = ?
+       GROUP BY p.id
+       ORDER BY last_order_at DESC`,
+      [hospitalId, departmentId]
+    );
+    return rows;
+  },
+
   async update(id, data) {
     const fields = [];
     const values = [];

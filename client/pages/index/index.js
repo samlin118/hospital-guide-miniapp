@@ -65,7 +65,7 @@ Page({
     } else {
       api.getGuideList({ size: 50 }).then(res => {
         if (res.code === 200 && res.data) {
-          const guides = (res.data.rows || []).map(g => ({ ...g, price }))
+          const guides = (res.data.rows || []).map(g => ({ ...g, price: g.price || price }))
           this.setData({ guides })
         }
       }).catch(() => {})

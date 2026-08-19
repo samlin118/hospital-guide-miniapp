@@ -56,3 +56,16 @@ exports.listByGuide = async (req, res) => {
     fail(res, err.message);
   }
 };
+
+// 导诊员查看某医院+科室下需要服务的患者
+exports.listByHospitalDepartment = async (req, res) => {
+  try {
+    if (req.user.type !== 'guide') return fail(res, 'Unauthorized');
+    const { hospitalId, departmentId } = req.query;
+    if (!hospitalId || !departmentId) return fail(res, 'hospitalId and departmentId required');
+    const rows = await Patient.findByHospitalDepartment(hospitalId, departmentId);
+    success(res, { rows, total: rows.length });
+  } catch (err) {
+    fail(res, err.message);
+  }
+};

@@ -23,6 +23,7 @@ Page({
       return
     }
     const guideId = this.data.guide.id
-    wx.navigateTo({ url: `/pages/order/confirm/confirm?guideId=${guideId}` })
+    const price = this.data.guide.price || 50
+    wx.navigateTo({ url: `/pages/order/confirm/confirm?guideId=${guideId}&price=${price}` })
   },
 })

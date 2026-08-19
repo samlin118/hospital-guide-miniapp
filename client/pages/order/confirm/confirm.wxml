@@ -52,6 +52,10 @@
 
   <view class="section price-detail">
     <view class="price-row">
+      <text>每小时报价</text>
+      <text>¥{{guidePrice}}/时</text>
+    </view>
+    <view class="price-row">
       <text>基础费用</text>
       <text>¥{{baseAmount}}</text>
     </view>

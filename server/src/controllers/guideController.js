@@ -107,6 +107,24 @@ exports.assignDepartments = async (req, res) => {
   }
 };
 
+// 管理端：更新导诊员信息（如每小时报价 price / 状态 status）
+exports.adminUpdate = async (req, res) => {
+  try {
+    const { id, price, status } = req.body;
+    if (!id) return fail(res, 'Guide id required');
+    const guide = await Guide.findById(id);
+    if (!guide) return fail(res, 'Guide not found');
+    const data = {};
+    if (price !== undefined) data.price = price;
+    if (status !== undefined) data.status = status;
+    await Guide.update(id, data);
+    const updated = await Guide.findById(id);
+    success(res, updated, 'Guide updated');
+  } catch (err) {
+    fail(res, err.message);
+  }
+};
+
 exports.list = async (req, res) => {
   try {
     const { page = 1, size = 10 } = req.query;

@@ -24,11 +24,9 @@ const CONFIG = {
   }
 };
 
-function calculateAmount(duration) {
-  if (duration <= CONFIG.PRICING.BASE_HOURS) {
-    return CONFIG.PRICING.BASE_PRICE;
-  }
-  return CONFIG.PRICING.BASE_PRICE + (duration - CONFIG.PRICING.BASE_HOURS) * CONFIG.PRICING.HOURLY_RATE;
+function calculateAmount(duration, price) {
+  const p = price || CONFIG.PRICING.BASE_PRICE;
+  return p * duration;
 }
 
 module.exports = { CONFIG, calculateAmount };

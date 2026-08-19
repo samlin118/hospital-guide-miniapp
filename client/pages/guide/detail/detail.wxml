@@ -21,9 +21,8 @@
   <view class="section">
     <text class="section-title">收费标准</text>
     <view class="price-detail">
-      <text class="price-row">前2小时: 50元</text>
-      <text class="price-row">超出部分: 10元/小时</text>
-      <text class="price-row">例: 预约3小时 = 50 + 10 = 60元</text>
+      <text class="price-row">每小时: {{guide.price || 50}}元</text>
+      <text class="price-row">例: 预约3小时 = {{(guide.price || 50) * 3}}元</text>
     </view>
   </view>
 

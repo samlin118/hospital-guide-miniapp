@@ -6,7 +6,8 @@
 .dept-item { display: flex; align-items: center; padding: 30rpx; border-bottom: 1rpx solid #f0f0f0; }
 .dept-item:last-child { border-bottom: none; }
 .dept-left { display: flex; align-items: center; flex: 1; }
-.dept-icon { width: 40rpx; height: 40rpx; margin-right: 20rpx; }
+.dept-badge { width: 64rpx; height: 64rpx; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20rpx; flex-shrink: 0; }
+.dept-badge-char { color: #fff; font-size: 30rpx; font-weight: bold; }
 .dept-name { font-size: 28rpx; color: var(--text-primary); }
 .dept-desc { font-size: 24rpx; color: var(--text-hint); margin: 0 20rpx; flex: 1; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dept-arrow { width: 24rpx; height: 24rpx; }

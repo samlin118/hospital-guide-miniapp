@@ -1,0 +1,18 @@
+<view class="admin-page">
+  <home-nav />
+  <view class="price-tip">点击导诊员可修改其每小时报价</view>
+  <view class="guide-list">
+    <view class="guide-item" wx:for="{{guides}}" wx:key="id" bindtap="onEditPrice" data-id="{{item.id}}">
+      <image class="guide-avatar" src="{{item.avatar || '/images/default/avatar.png'}}" mode="aspectFill" />
+      <view class="guide-info">
+        <text class="guide-name">{{item.name}}</text>
+        <text class="guide-phone">{{item.phone}}</text>
+      </view>
+      <view class="guide-price-wrap">
+        <text class="guide-price">¥{{item.price || 50}}<text class="unit">/时</text></text>
+        <text class="edit-hint">编辑</text>
+      </view>
+    </view>
+    <empty-state wx:if="{{guides.length === 0}}" text="暂无导诊员" />
+  </view>
+</view>

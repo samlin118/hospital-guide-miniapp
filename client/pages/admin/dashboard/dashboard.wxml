@@ -22,6 +22,13 @@
       <text class="menu-text">导诊员分配</text>
       <image class="menu-arrow" src="/images/icons/arrow-right.png" />
     </view>
+    <view class="menu-item" bindtap="onGuidePrice">
+      <view class="menu-icon-wrap icon-guide">
+        <image class="menu-icon" src="/images/icons/guide.png" />
+      </view>
+      <text class="menu-text">导诊员报价</text>
+      <image class="menu-arrow" src="/images/icons/arrow-right.png" />
+    </view>
     <view class="menu-item" bindtap="onCouponMgmt">
       <view class="menu-icon-wrap icon-coupon">
         <image class="menu-icon" src="/images/icons/coupon.png" />

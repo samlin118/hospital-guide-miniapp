@@ -1,0 +1,15 @@
+.patients-page { padding-bottom: 20rpx; }
+.page-header { background: #fff; margin: 20rpx 30rpx; border-radius: var(--card-radius); padding: 30rpx; }
+.page-title { font-size: 32rpx; font-weight: bold; display: block; margin-bottom: 8rpx; color: var(--text-primary); }
+.page-sub { font-size: 26rpx; color: var(--text-hint); }
+.patient-list { margin: 0 30rpx; background: #fff; border-radius: var(--card-radius); overflow: hidden; }
+.patient-card { display: flex; align-items: center; padding: 28rpx 30rpx; border-bottom: 1rpx solid #f0f0f0; }
+.patient-card:last-child { border-bottom: none; }
+.patient-avatar { width: 80rpx; height: 80rpx; border-radius: 50%; background: #F2F3F5; margin-right: 22rpx; flex-shrink: 0; }
+.patient-info { flex: 1; overflow: hidden; }
+.patient-name { font-size: 30rpx; font-weight: bold; color: var(--text-primary); display: block; }
+.patient-phone { font-size: 24rpx; color: var(--text-secondary); display: block; margin-top: 6rpx; }
+.patient-addr { font-size: 22rpx; color: var(--text-hint); display: block; margin-top: 4rpx; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.patient-side { text-align: right; flex-shrink: 0; margin-left: 20rpx; }
+.patient-count { font-size: 28rpx; color: #07C160; font-weight: bold; display: block; }
+.patient-time { font-size: 20rpx; color: var(--text-hint); display: block; margin-top: 6rpx; }
